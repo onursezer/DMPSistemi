@@ -1,5 +1,6 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,9 +40,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         ekle = (Button) findViewById(R.id.btnEkle);
         gorBtn = (Button) findViewById(R.id.btnGor);
         gor = (TextView) findViewById(R.id.txtView);
+        kullaniciKayit = (Button) findViewById(R.id.btnUser);
 
         ekle.setOnClickListener(this);
         gorBtn.setOnClickListener(this);
+        kullaniciKayit.setOnClickListener(this);
     }
 
 
@@ -56,6 +59,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 break;
             case R.id.btnGor:
                 yapilacaklariGoster();
+                break;
+            case R.id.btnUser:
+                kullaniEkraniniAc();
+
         }
     }
 
@@ -89,5 +96,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
             }
         });
+    }
+
+    private void kullaniEkraniniAc(){
+        Intent intent = new Intent(getApplicationContext(), second.class);
+        startActivity(intent);
     }
 }
