@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "706554743392",
+    "firebase_url": "https://deneme03-6c0b8.firebaseio.com",
+    "project_id": "deneme03-6c0b8",
+    "storage_bucket": "deneme03-6c0b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706554743392:android:af1d144991c2562e",
+        "android_client_info": {
+          "package_name": "com.bitirme2.onursezer.dmpsistemi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706554743392-f0el1che52hrglgvvilt5usd8fvh4vm0.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "706554743392-m7jfb2krk7lrr1ah5sov3hs93ni6v8mm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACTXs7o8CA0GMWVFKmlq7YGLN1FgrWUIw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
