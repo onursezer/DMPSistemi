@@ -1,21 +1,21 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
 /**
- * Created by OnurSezer on 20.10.2017.
+ * Created by OnurSezer on 27.10.2017.
  */
 
-public class Kullanici {
+public class User {
 
     private String name;
     private String surname;
-    private String age;
+    private String email;
 
-    public Kullanici() {}
+    public User() {}
 
-    public Kullanici(String name, String surname, String age) {
+    public User(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
-        this.age = age;
+        this.email = email;
     }
 
     public String getName() {
@@ -34,12 +34,12 @@ public class Kullanici {
         this.surname = surname;
     }
 
-    public String getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -47,7 +47,6 @@ public class Kullanici {
         return "Kullanici{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", age='" + age + '\'' +
                 '}';
     }
 }
