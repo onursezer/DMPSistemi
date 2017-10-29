@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -72,26 +73,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loginUser(String email, final String password) {
-        auth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        System.out.println("email :  " + input_email.getText().toString());
-                        System.out.println("pass  : " + input_password.getText().toString() );
-                        if(!task.isSuccessful())
-                        {
-                            if(password.length() < 6)
+
+        if(!email.isEmpty() && !password.isEmpty())
+        {
+            auth.signInWithEmailAndPassword(email,password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            System.out.println("email :  " + input_email.getText().toString());
+                            System.out.println("pass  : " + input_password.getText().toString() );
+                            if(!task.isSuccessful())
                             {
-                                Snackbar snackBar = Snackbar.make(activity_main,"Password length must be over 6",Snackbar.LENGTH_SHORT);
-                                snackBar.show();
+
+                                Toast.makeText(MainActivity.this, "Hatalı E-posta ya da Şifre Girildi!", Toast.LENGTH_SHORT).show();
                             }
-                            System.out.println("bulunmadı");
+                            else{
+                                System.out.println("bulundu");
+                                startActivity(new Intent(MainActivity.this,DashBoard.class));
+                            }
                         }
-                        else{
-                            System.out.println("bulundu");
-                            startActivity(new Intent(MainActivity.this,DashBoard.class));
-                        }
-                    }
-                });
+                    });
+        }
+        else{
+            Toast.makeText(MainActivity.this, "Lütfen Boş Alan Bırakmayın!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

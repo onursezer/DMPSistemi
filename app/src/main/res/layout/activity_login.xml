@@ -69,7 +69,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#263238"
+        android:background="#00897B"
         android:text="Giriş Yap" />
 
     <TextView
@@ -80,7 +80,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:text="Şifremi Unuttum"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#00897B"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -118,7 +118,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:text="Kayıt Ol"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#00897B"
         android:textStyle="bold" />
 
 </LinearLayout>

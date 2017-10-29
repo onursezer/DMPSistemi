@@ -47,6 +47,7 @@ public class User {
         return "Kullanici{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

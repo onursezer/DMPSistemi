@@ -13,13 +13,13 @@
     tools:context="com.bitirme2.onursezer.dmpsistemi.SignUp">
 
 
-    <!--   <ImageView
+    <ImageView
         android:id="@+id/icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/firebase"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />-->
+        android:background="@drawable/class_con" />
 
 
     <android.support.design.widget.TextInputLayout
@@ -85,7 +85,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#263238"
+        android:background="#00897B"
         android:text="Kayıt Ol" />
 
     <TextView
@@ -96,7 +96,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:text="Şifremi Unuttum"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#00897B"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="OR" />
+            android:text="veya" />
 
         <View
             android:layout_width="200dp"
@@ -134,7 +134,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:text="Zaten Hesabım Var, Giriş Yap"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#00897B"
         android:textStyle="bold" />
 
 </LinearLayout>

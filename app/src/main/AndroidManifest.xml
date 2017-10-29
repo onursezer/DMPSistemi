@@ -17,7 +17,11 @@
         </activity>
         <activity android:name=".DashBoard" />
         <activity android:name=".ForgotPassword" />
-        <activity android:name=".SignUp"></activity>
+        <activity android:name=".SignUp" />
+        <activity
+            android:name=".TeacherScreen"
+            android:label="@string/title_activity_teacher_screen"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

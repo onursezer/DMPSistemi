@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +24,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     private EditText input_email;
     private Button btnResetPass;
     private TextView btnBack;
-    private RelativeLayout activity_forgot;
+    private LinearLayout activity_forgot;
 
     private FirebaseAuth auth;
 
@@ -35,7 +37,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         input_email = (EditText)findViewById(R.id.forgot_email);
         btnResetPass = (Button)findViewById(R.id.forgot_btn_reset);
         btnBack = (TextView)findViewById(R.id.forgot_btn_back);
-        activity_forgot = (RelativeLayout)findViewById(R.id.activity_forgot_password);
+        activity_forgot = (LinearLayout)findViewById(R.id.activity_forgot_password);
 
         btnResetPass.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -59,20 +61,31 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     }
 
     private void resetPassword(final String email) {
-        auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                        {
-                            Snackbar snackBar = Snackbar.make(activity_forgot,"We have sent password to email: "+email,Snackbar.LENGTH_SHORT);
-                            snackBar.show();
+
+
+        if(!email.isEmpty())
+        {
+            auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful())
+                            {
+                                Snackbar snackBar = Snackbar.make(activity_forgot,"We have sent password to email: "+email,Snackbar.LENGTH_SHORT);
+                                snackBar.show();
+                            }
+                            else{
+                                Snackbar snackBar = Snackbar.make(activity_forgot,"Failed to send password",Snackbar.LENGTH_SHORT);
+                                snackBar.show();
+                            }
                         }
-                        else{
-                            Snackbar snackBar = Snackbar.make(activity_forgot,"Failed to send password",Snackbar.LENGTH_SHORT);
-                            snackBar.show();
-                        }
-                    }
-                });
+                    });
+        }
+        else{
+            Toast.makeText(ForgotPassword.this, "Lütfen Boş Alan Bırakmayın!", Toast.LENGTH_SHORT).show();
+        }
+
+
+
     }
 }
