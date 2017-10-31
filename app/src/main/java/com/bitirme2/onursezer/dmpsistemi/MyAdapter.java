@@ -17,12 +17,14 @@ import android.widget.TextView;
 public class MyAdapter extends ArrayAdapter<String>{
 
     String[] names;
+    String[] names2;
     Integer [] flags;
     Context mContext;
 
-    public MyAdapter(Context context, String[] countryNames, Integer[] countryFlags) {
+    public MyAdapter(Context context, String[] className,String[] branchName, Integer[] countryFlags) {
         super(context, R.layout.listview_item);
-        this.names = countryNames;
+        this.names = className;
+        this.names2 = branchName;
         this.flags = countryFlags;
         this.mContext = context;
     }
@@ -41,6 +43,7 @@ public class MyAdapter extends ArrayAdapter<String>{
             convertView = mInf.inflate(R.layout.listview_item, parent, false);
             mViewHolder.mFlag = (ImageView) convertView.findViewById(R.id.imageView);
             mViewHolder.mName = (TextView) convertView.findViewById(R.id.textListItem);
+            mViewHolder.mName2 = (TextView) convertView.findViewById(R.id.textListItem2);
             convertView.setTag(mViewHolder);
         }
         else{
@@ -48,12 +51,13 @@ public class MyAdapter extends ArrayAdapter<String>{
         }
         mViewHolder.mFlag.setImageResource(flags[position]);
         mViewHolder.mName.setText(names[position]);
-
+        mViewHolder.mName2.setText(names2[position]);
         return convertView;
     }
 
     static class  ViewHolder{
         ImageView mFlag;
         TextView mName;
+        TextView mName2;
     }
 }

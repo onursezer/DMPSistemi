@@ -55,18 +55,24 @@ public class TeacherScreen extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> list = new ArrayList<String>();
+                final List<String> list2 = new ArrayList<String>();
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     list.add(data.getValue(ClassBean.class).getClassName());
+                    list2.add(data.getValue(ClassBean.class).getClassBranch());
                 }
                 String[] countyNames = new String[list.size()];
+                String[] branchNames = new String[list.size()];
                 Integer[] countyFlags = new Integer[list.size()];
                 for (int i = 0; i < list.size(); i++) {
                     countyNames[i] = list.get(i);
                 }
+                for (int i = 0; i < list2.size(); i++) {
+                    branchNames[i] = list2.get(i);
+                }
                 for (int i = 0; i < list.size(); i++) {
                     countyFlags[i] = R.mipmap.class_teacher_icon;
                 }
-                MyAdapter myAdapter = new MyAdapter(TeacherScreen.this, countyNames, countyFlags);
+                MyAdapter myAdapter = new MyAdapter(TeacherScreen.this, countyNames,branchNames, countyFlags);
                 mListView.setAdapter(myAdapter);
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

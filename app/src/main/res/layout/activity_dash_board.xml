@@ -108,17 +108,6 @@
             android:background="#00897B"
             android:text="Öğrenci" />
 
-        <TextView
-            android:id="@+id/dashboardExplation"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="* sadasd"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
-
     </LinearLayout>
 
 
