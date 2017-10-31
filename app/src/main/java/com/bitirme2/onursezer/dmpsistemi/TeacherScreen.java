@@ -11,14 +11,23 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 public class TeacherScreen extends AppCompatActivity {
 
+    ListView mListView;
+    String[] countyNames = new String[]{"Almanya", "Türkiye", "ispanya", "breazilya"};
+    int [] countyFlags =  {R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +36,16 @@ public class TeacherScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Sınıflar");
         toolbar.setBackgroundColor(Color.parseColor("#00897B"));
-
+        mListView  = (ListView) findViewById(R.id.listview);
+        MyAdapter myAdapter = new MyAdapter(TeacherScreen.this, countyNames, countyFlags);
+        mListView.setAdapter(myAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent mIntent = new Intent(TeacherScreen.this, ClassScreen.class);
+                startActivity(mIntent);
+            }
+        });
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("USER");
         User user = gS.fromJson(target, User.class);

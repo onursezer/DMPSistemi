@@ -21,6 +21,10 @@
         <activity
             android:name=".TeacherScreen"
             android:label="@string/title_activity_teacher_screen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ClassScreen"
+            android:label="@string/title_activity_class_screen"
             android:theme="@style/AppTheme"></activity>
     </application>
 
