@@ -17,10 +17,10 @@ import android.widget.TextView;
 public class MyAdapter extends ArrayAdapter<String>{
 
     String[] names;
-    int [] flags;
+    Integer [] flags;
     Context mContext;
 
-    public MyAdapter(Context context, String[] countryNames, int[] countryFlags) {
+    public MyAdapter(Context context, String[] countryNames, Integer[] countryFlags) {
         super(context, R.layout.listview_item);
         this.names = countryNames;
         this.flags = countryFlags;
