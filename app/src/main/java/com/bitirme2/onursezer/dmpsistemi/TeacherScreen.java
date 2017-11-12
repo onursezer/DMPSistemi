@@ -45,7 +45,7 @@ public class TeacherScreen extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Sınıflar");
+        getSupportActionBar().setTitle("Dersler");
         toolbar.setBackgroundColor(Color.parseColor("#00897B"));
         mListView  = (ListView) findViewById(R.id.listview);
 

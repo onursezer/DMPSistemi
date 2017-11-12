@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bitirme2.onursezer.dmpsistemi.class_screen$PlaceholderFragment">
+    tools:context="com.bitirme2.onursezer.dmpsistemi.ClassScreen$PlaceholderFragment">
 
     <TextView
         android:id="@+id/section_label"
