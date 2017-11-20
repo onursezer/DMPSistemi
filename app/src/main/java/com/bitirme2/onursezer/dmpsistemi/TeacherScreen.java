@@ -49,8 +49,15 @@ public class TeacherScreen extends AppCompatActivity {
         toolbar.setBackgroundColor(Color.parseColor("#00897B"));
         mListView  = (ListView) findViewById(R.id.listview);
 
+        Gson gS = new Gson();
+        String target = getIntent().getStringExtra("USER");
+        teacher = gS.fromJson(target, User.class);
+        String nameClass = teacher.getEmail();
+        nameClass = nameClass.replace(".", ""); nameClass = nameClass.replace("#", "");
+        nameClass = nameClass.replace("$", ""); nameClass = nameClass.replace("[", "");
+        nameClass = nameClass.replace("]", "");
 
-        DatabaseReference dbRef = db.getReference("Class");
+        DatabaseReference dbRef = db.getReference("Class/"+nameClass);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,13 +97,10 @@ public class TeacherScreen extends AppCompatActivity {
         });
 
 
-        Gson gS = new Gson();
-        String target = getIntent().getStringExtra("USER");
-        teacher = gS.fromJson(target, User.class);
-
         System.out.println("deneme : " + teacher);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final String finalNameClass = nameClass;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,9 +158,9 @@ public class TeacherScreen extends AppCompatActivity {
                                 }
                             });
                             // sınıf oluştur
-                            DatabaseReference dbRef = db.getReference("Class");
+                            DatabaseReference dbRef = db.getReference("Class/"+ finalNameClass);
                             String key = dbRef.push().getKey();
-                            DatabaseReference dbRef2 = db.getReference("Class/" + key);
+                            DatabaseReference dbRef2 = db.getReference("Class/"+ finalNameClass + "/" + key);
                             dbRef2.setValue(new ClassBean(className.getText().toString(),classBranchName.getText().toString(),
                                     getSaltString(), teacher,student));
 

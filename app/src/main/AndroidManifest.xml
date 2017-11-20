@@ -25,7 +25,8 @@
         <activity
             android:name=".ClassScreen"
             android:label="@string/title_activity_class_screen"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".StudentScreen" />
     </application>
 
 </manifest>

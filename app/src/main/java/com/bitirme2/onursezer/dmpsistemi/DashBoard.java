@@ -84,12 +84,18 @@ public class DashBoard extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-
+        Gson gS = new Gson();
+        String target = gS.toJson(user);
+        Intent intent ;
         switch (view.getId()){
             case R.id.btnDasboardTeacher:
-                Gson gS = new Gson();
-                String target = gS.toJson(user);
-                Intent intent = new Intent(getBaseContext(), TeacherScreen.class);
+
+                intent = new Intent(getBaseContext(), TeacherScreen.class);
+                intent.putExtra("USER",  target);
+                startActivity(intent);
+                break;
+            case R.id.btnDasboardStudent:
+                intent = new Intent(getBaseContext(), StudentScreen.class);
                 intent.putExtra("USER",  target);
                 startActivity(intent);
                 break;
