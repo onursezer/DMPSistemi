@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.bitirme2.onursezer.dmpsistemi"
         minSdkVersion 16
@@ -10,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    configurations {
+        all*.exclude module: 'play-services-awareness'
     }
     buildTypes {
         release {
@@ -32,13 +36,10 @@ dependencies {
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2'
+    compile 'com.firebaseui:firebase-ui:3.1.0'
     testCompile 'junit:junit:4.12'
 }
-
-
-
-
-
 
 
 apply plugin: 'com.google.gms.google-services'

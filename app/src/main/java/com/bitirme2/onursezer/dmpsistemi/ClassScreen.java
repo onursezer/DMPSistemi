@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 public class ClassScreen extends AppCompatActivity {
 
     /**
@@ -41,7 +43,12 @@ public class ClassScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),"onur");
+
+        Gson gS = new Gson();
+        String target = getIntent().getStringExtra("CLASS");
+        ClassBean classBean = gS.fromJson(target, ClassBean.class);
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),classBean.getTeacher().getEmail(),classBean.getClassId());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -113,10 +120,11 @@ public class ClassScreen extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String name ;
-        public SectionsPagerAdapter(FragmentManager fm, String name) {
+        String name,id ;
+        public SectionsPagerAdapter(FragmentManager fm, String name,String id) {
             super(fm);
             this.name = name;
+            this.id = id;
         }
 
         @Override
@@ -124,7 +132,7 @@ public class ClassScreen extends AppCompatActivity {
             switch (position){
                 case 0:
                     System.out.println("tab1");
-                    return  Tab1.newInstance(name);
+                    return  Tab1.newInstance(name, id);
                 case 1:
                     Tab2 tab2 = new Tab2();
                     System.out.println("tab2");

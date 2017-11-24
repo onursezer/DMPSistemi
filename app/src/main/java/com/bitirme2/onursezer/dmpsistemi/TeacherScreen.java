@@ -2,19 +2,14 @@ package com.bitirme2.onursezer.dmpsistemi;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,7 +45,7 @@ public class TeacherScreen extends AppCompatActivity {
         mListView  = (ListView) findViewById(R.id.listview);
 
         Gson gS = new Gson();
-        String target = getIntent().getStringExtra("USER");
+        final String target = getIntent().getStringExtra("USER");
         teacher = gS.fromJson(target, User.class);
         String nameClass = teacher.getEmail();
         nameClass = nameClass.replace(".", ""); nameClass = nameClass.replace("#", "");
@@ -63,9 +58,11 @@ public class TeacherScreen extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> list = new ArrayList<String>();
                 final List<String> list2 = new ArrayList<String>();
+                final List<ClassBean> list3 = new ArrayList<ClassBean>();
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
                     list.add(data.getValue(ClassBean.class).getClassName());
                     list2.add(data.getValue(ClassBean.class).getClassBranch());
+                    list3.add(data.getValue(ClassBean.class));
                 }
                 String[] countyNames = new String[list.size()];
                 String[] branchNames = new String[list.size()];
@@ -84,8 +81,13 @@ public class TeacherScreen extends AppCompatActivity {
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent mIntent = new Intent(TeacherScreen.this, ClassScreen.class);
-                        startActivity(mIntent);
+
+                        System.out.println("position : " + position);
+                        Intent intent  = new Intent(getBaseContext(), ClassScreen.class);
+                        Gson gS = new Gson();
+                        String classBean = gS.toJson(list3.get(position));
+                        intent.putExtra("CLASS", classBean );
+                        startActivity(intent);
                     }
                 });
             }
