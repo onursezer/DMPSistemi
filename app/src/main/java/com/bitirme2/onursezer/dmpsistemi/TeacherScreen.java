@@ -85,8 +85,9 @@ public class TeacherScreen extends AppCompatActivity {
                         System.out.println("position : " + position);
                         Intent intent  = new Intent(getBaseContext(), ClassScreen.class);
                         Gson gS = new Gson();
-                        String classBean = gS.toJson(list3.get(position));
-                        intent.putExtra("CLASS", classBean );
+                        String classString = gS.toJson(list3.get(position));
+                        intent.putExtra("CLASS", classString );
+                        intent.putExtra("STATUS", "0" );
                         startActivity(intent);
                     }
                 });
@@ -136,11 +137,6 @@ public class TeacherScreen extends AppCompatActivity {
                     public void onClick(View v) {
                         if(!className.getText().toString().isEmpty() && !classBranchName.getText().toString().isEmpty())
                         {
-                            List<User> student = new ArrayList<User>();
-                            student.add(new User("ali", "akyuz", "ali.akyuz@xyz.com"));
-                            student.add(new User("recep", "sivri", "recep.sivir@xyz.com"));
-                            student.add(new User("hasan", "bilgin", "hasan.bilgin@xyz.com"));
-
 
                             // silme
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -153,18 +149,24 @@ public class TeacherScreen extends AppCompatActivity {
                                         appleSnapshot.getRef().removeValue();
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
                                     System.out.println("DELETE : CANCEL");
                                 }
                             });
                             // sınıf oluştur
+                            String classID = getSaltString();
                             DatabaseReference dbRef = db.getReference("Class/"+ finalNameClass);
                             String key = dbRef.push().getKey();
                             DatabaseReference dbRef2 = db.getReference("Class/"+ finalNameClass + "/" + key);
                             dbRef2.setValue(new ClassBean(className.getText().toString(),classBranchName.getText().toString(),
-                                    getSaltString(), teacher,student));
+                                    classID, teacher));
+                            // sınıf ile ogretmeni eslestir
+                            DatabaseReference dbRef3 = db.getReference("Map");
+                            String key2 = dbRef3.push().getKey();
+                            DatabaseReference dbRef4 = db.getReference("Map/"+ key2);
+                            dbRef4.setValue(new MapClassAndTeacher( finalNameClass, classID ));
+
 
                             Toast.makeText(TeacherScreen.this, "Sınıf Oluşturuldu!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();

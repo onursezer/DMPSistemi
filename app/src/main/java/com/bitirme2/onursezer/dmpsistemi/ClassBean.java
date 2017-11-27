@@ -16,12 +16,11 @@ public class ClassBean {
 
     public ClassBean() {}
 
-    public ClassBean(String className, String classBranch, String classId, User teacher, List<User> student) {
+    public ClassBean(String className, String classBranch, String classId, User teacher) {
         this.className = className;
         this.classBranch = classBranch;
         this.classId = classId;
         this.teacher = teacher;
-        this.student = student;
     }
 
     public String getClassName() {
