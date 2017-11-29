@@ -1,28 +1,23 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by OnurSezer on 31.10.2017.
+ * Created by OnurSezer on 29.11.2017.
  */
 
-public class ClassBean {
+public class ClassInfo {
 
     private String className;
     private String classBranch;
     private String classId;
     private User teacher;
-    private List<User> student;
 
-    public ClassBean() {}
+    public ClassInfo() {}
 
-    public ClassBean(String className, String classBranch, String classId, User teacher) {
+    public ClassInfo(String className, String classBranch, String classId, User teacher) {
         this.className = className;
         this.classBranch = classBranch;
         this.classId = classId;
         this.teacher = teacher;
-        student = new ArrayList<User>();
     }
 
     public String getClassName() {
@@ -57,11 +52,4 @@ public class ClassBean {
         this.teacher = teacher;
     }
 
-    public List<User> getStudent() {
-        return student;
-    }
-
-    public void setStudent(List<User> student) {
-        this.student = student;
-    }
 }

@@ -12,7 +12,7 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private List<ClassBean> studentClasses;
+    private List<ClassInfo> studentClasses;
     //private List<String> teacherClasses;
 
     public User() {}
@@ -25,11 +25,11 @@ public class User {
         //teacherClasses = new ArrayList<>();
     }
 
-    public List<ClassBean> getStudentClasses() {
+    public List<ClassInfo> getStudentClasses() {
         return studentClasses;
     }
 
-    public void setStudentClasses(List<ClassBean> studentClasses) {
+    public void setStudentClasses(List<ClassInfo> studentClasses) {
         this.studentClasses = studentClasses;
     }
 

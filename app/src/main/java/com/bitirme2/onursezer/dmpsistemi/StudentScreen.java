@@ -54,16 +54,16 @@ public class StudentScreen extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> list = new ArrayList<String>();
                 final List<String> list2 = new ArrayList<String>();
-                final List<ClassBean> list3 = new ArrayList<ClassBean>();
+                final List<ClassInfo> list3 = new ArrayList<ClassInfo>();
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    List<ClassBean>  listClass = new ArrayList<ClassBean>();
+                    List<ClassInfo>  listClass = new ArrayList<ClassInfo>();
                     listClass = data.getValue(User.class).getStudentClasses();
                     if (listClass != null && listClass.size() > 0) {
                         if (data.getValue(User.class).getEmail().equals(user.getEmail())) {
-                            for (ClassBean cBean : data.getValue(User.class).getStudentClasses()) {
-                                list.add(cBean.getClassName());
-                                list2.add(cBean.getClassBranch());
-                                list3.add(cBean);
+                            for (ClassInfo cInfo : data.getValue(User.class).getStudentClasses()) {
+                                list.add(cInfo.getClassName());
+                                list2.add(cInfo.getClassBranch());
+                                list3.add(cInfo);
                             }
                         }
                     }
@@ -136,10 +136,10 @@ public class StudentScreen extends AppCompatActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final String[] teacherOfClass = {""};
                         if(!classIdTxt.getText().toString().isEmpty())
                         {
-                          // kullanicin student kismina dersi eklenir, sinifin ogrenci kismina yeni ogrenci eklenir
+                            final String[] teacherOfClass = {""};
+                            // kullanicin student kismina dersi eklenir, sinifin ogrenci kismina yeni ogrenci eklenir
                             // öğretmen ile sınıfın kodunu eşleştir boylelikle sınıfın ismini kolayca bulursun
                             System.out.println("classIdTxt.getText().toString() : " + classIdTxt.getText().toString());
                             DatabaseReference dbRef = db.getReference("Map");
@@ -160,48 +160,96 @@ public class StudentScreen extends AppCompatActivity {
                                         System.out.println("GİRDİ");
 
                                         // sinifi bulma
-                                        final ClassBean[] cBean = {null};
                                         DatabaseReference dbRef = db.getReference("Class/"+teacherOfClass[0]);
                                         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                                final ClassBean[] cBean = {null};
+                                                final ClassInfo[] cInfo = {null};
                                                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                                                    if(data.getValue(ClassBean.class).getClassId().equals(classIdTxt.getText().toString()))
+                                                    if(data.getValue(ClassBean.class).getClassId().equals(classIdTxt.getText().toString())) {
                                                         cBean[0] = data.getValue(ClassBean.class);
-
+                                                        cInfo[0] = new ClassInfo(cBean[0].getClassName(), cBean[0].getClassBranch(), cBean[0].getClassId(), cBean[0].getTeacher());
+                                                    }
                                                 }
 
-                                                List<ClassBean> lClass = new ArrayList<ClassBean>();
-                                                lClass = user.getStudentClasses();
-                                                lClass.add(cBean[0]);
-                                                System.out.println("burda : " + cBean[0].getClassId() + " " + cBean[0].getTeacher() + " " + cBean[0].getClassBranch()) ;
-                                                user.setStudentClasses(lClass);
-                                                User tempUser = user;
+                                                DatabaseReference dbRef = db.getReference("Users");
+                                                final ClassInfo finalCInfo = cInfo[0];
+                                                dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                     @Override
+                                                     public void onDataChange(DataSnapshot dataSnapshot) {
+                                                         List<ClassInfo> lClass = null;
+                                                         for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                                             if(data.getValue(User.class).getEmail().equals(user.getEmail())){
+                                                                 lClass = data.getValue(User.class).getStudentClasses();
+                                                             }
+                                                         }
+                                                         if(lClass == null)
+                                                             lClass = new ArrayList<ClassInfo>();
+                                                         lClass.add(finalCInfo);
 
-                                                // silme
-                                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                                                Query applesQuery = ref.child("Users").orderByChild("email").equalTo(user.getEmail());
-                                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                                            appleSnapshot.getRef().removeValue();
-                                                        }
-                                                    }
+                                                         // silme
+                                                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                                                         Query applesQuery = ref.child("Users").orderByChild("email").equalTo(user.getEmail());
+                                                         applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                             @Override
+                                                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                                                     appleSnapshot.getRef().removeValue();
+                                                                 }
+                                                             }
+                                                             @Override
+                                                             public void onCancelled(DatabaseError databaseError) {
+                                                                 System.out.println("DELETE : CANCEL");
+                                                             }
+                                                         });
+                                                         user.setStudentClasses(lClass);
+                                                         DatabaseReference dbRef = db.getReference("Users");
+                                                         String key = dbRef.push().getKey();
+                                                         DatabaseReference dbRef2 = db.getReference("Users/" + key);
+                                                         dbRef2.setValue(user);
+
+
+                                                  /*       // sinifin ogrenci listesini guncelle
+                                                         // sinifi sil
+                                                         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
+                                                         Query applesQuery2 = ref2.child("Class/"+teacherOfClass[0]).orderByChild("classId").equalTo(cBean[0].getClassId());
+                                                         applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                             @Override
+                                                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                                                     appleSnapshot.getRef().removeValue();
+                                                                 }
+                                                             }
+                                                             @Override
+                                                             public void onCancelled(DatabaseError databaseError) {
+                                                                 System.out.println("DELETE : CANCEL");
+                                                             }
+                                                         });
+
+                                                         // sinifi guncelle
+                                                         List<User> students = null;
+                                                         students = cBean[0].getStudent();
+                                                         if(students == null)
+                                                             students = new ArrayList<User>();
+                                                         System.out.println("size : " + cBean[0].getStudent().size());
+                                                         students.add(user);
+                                                         System.out.println("** size : " + cBean[0].getStudent().size());
+                                                         cBean[0].setStudent(students);
+                                                         DatabaseReference dbRef4 = db.getReference("Class/"+ teacherOfClass[0]);
+                                                         String key2 = dbRef4.push().getKey();
+                                                         DatabaseReference dbRef5 = db.getReference("Class/"+ teacherOfClass[0] + "/" + key2);
+                                                         dbRef5.setValue( cBean[0] );
+
+                                                         System.out.println("eklendi");*/
+
+                                                         Toast.makeText(StudentScreen.this, "Sınıf Eklendi!", Toast.LENGTH_SHORT).show();
+                                                     }
                                                     @Override
                                                     public void onCancelled(DatabaseError databaseError) {
-                                                        System.out.println("DELETE : CANCEL");
+
                                                     }
-                                                });
-
-                                                // ekle
-
-                                                DatabaseReference dbRef = db.getReference("Users");
-                                                String key = dbRef.push().getKey();
-                                                DatabaseReference dbRef2 = db.getReference("Users/" + key);
-                                                dbRef2.setValue(tempUser);
-
-                                                Toast.makeText(StudentScreen.this, "Sınıf Eklendi!", Toast.LENGTH_SHORT).show();
+                                                 });
 
                                             }
                                             @Override
@@ -209,20 +257,18 @@ public class StudentScreen extends AppCompatActivity {
 
                                             }
                                         });
-
-
                                     }
                                     else
                                     {
                                         Toast.makeText(StudentScreen.this, "Girilen Sınıf Kodu Bulunamadı!", Toast.LENGTH_SHORT).show();
                                     }
-
                                 }
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
                                 }
                             });
+                            dialog.dismiss();
                         }
                         else{
                             Toast.makeText(StudentScreen.this, "Lütfen Boş Alan Bırakmayın!", Toast.LENGTH_SHORT).show();
