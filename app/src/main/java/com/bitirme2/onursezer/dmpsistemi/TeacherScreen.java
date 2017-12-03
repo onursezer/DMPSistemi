@@ -30,7 +30,7 @@ public class TeacherScreen extends AppCompatActivity {
 
     FirebaseDatabase db;
     ListView mListView;
-    User teacher;
+    User user;
 
 
     @Override
@@ -46,8 +46,8 @@ public class TeacherScreen extends AppCompatActivity {
 
         Gson gS = new Gson();
         final String target = getIntent().getStringExtra("USER");
-        teacher = gS.fromJson(target, User.class);
-        String nameClass = teacher.getEmail();
+        user = gS.fromJson(target, User.class);
+        String nameClass = user.getEmail();
         nameClass = nameClass.replace(".", ""); nameClass = nameClass.replace("#", "");
         nameClass = nameClass.replace("$", ""); nameClass = nameClass.replace("[", "");
         nameClass = nameClass.replace("]", "");
@@ -83,11 +83,13 @@ public class TeacherScreen extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         System.out.println("position : " + position);
-                        Intent intent  = new Intent(getBaseContext(), ClassScreen.class);
+                        Intent intent = new Intent(getBaseContext(), ClassScreen.class);
                         Gson gS = new Gson();
                         String classString = gS.toJson(list3.get(position));
-                        intent.putExtra("CLASS", classString );
-                        intent.putExtra("STATUS", "0" );
+                        String userString = gS.toJson(user);
+                        intent.putExtra("CLASS", classString);
+                        intent.putExtra("STATUS", "0");
+                        intent.putExtra("USER", userString);  // akış isimlerini değiştirmek için
                         startActivity(intent);
                     }
                 });
@@ -100,7 +102,7 @@ public class TeacherScreen extends AppCompatActivity {
         });
 
 
-        System.out.println("deneme : " + teacher);
+        System.out.println("deneme : " + user);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final String finalNameClass = nameClass;
@@ -160,13 +162,17 @@ public class TeacherScreen extends AppCompatActivity {
                             String key = dbRef.push().getKey();
                             DatabaseReference dbRef2 = db.getReference("Class/"+ finalNameClass + "/" + key);
                             dbRef2.setValue(new ClassBean(className.getText().toString(),classBranchName.getText().toString(),
-                                    classID, teacher));
+                                    classID, user));
                             // sınıf ile ogretmeni eslestir
                             DatabaseReference dbRef3 = db.getReference("Map");
                             String key2 = dbRef3.push().getKey();
                             DatabaseReference dbRef4 = db.getReference("Map/"+ key2);
                             dbRef4.setValue(new MapClassAndTeacher( finalNameClass, classID ));
-
+                            // sinif ile ogrencileri eslestir
+                            DatabaseReference dbRef5 = db.getReference("Map2");
+                            String key3 = dbRef5.push().getKey();
+                            DatabaseReference dbRef6 = db.getReference("Map2/"+ key3);
+                            dbRef6.setValue(new MapClassAndStudents ( classID ));
 
                             Toast.makeText(TeacherScreen.this, "Sınıf Oluşturuldu!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();

@@ -1,35 +1,25 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by OnurSezer on 27.10.2017.
+ * Created by OnurSezer on 3.12.2017.
  */
 
-public class User {
+public class StudentInfo {
+
 
     private String name;
     private String surname;
     private String email;
-    private List<ClassInfo> studentClasses;
 
-    public User() {}
+    public StudentInfo() {}
 
-    public User(String name, String surname, String email) {
+    public StudentInfo(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        studentClasses = new ArrayList<>();
     }
 
-    public List<ClassInfo> getStudentClasses() {
-        return studentClasses;
-    }
 
-    public void setStudentClasses(List<ClassInfo> studentClasses) {
-        this.studentClasses = studentClasses;
-    }
     public String getName() {
         return name;
     }
@@ -62,4 +52,6 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+
 }

@@ -30,15 +30,15 @@ android:paddingTop="@dimen/activity_vertical_margin"
     android:layout_height="40dp" />
 
 
-<hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
-    android:id="@+id/emojicon_edit_text"
-    android:layout_alignParentBottom="true"
-    android:layout_toRightOf="@+id/emoji_button"
-    android:layout_toLeftOf="@+id/submit_button"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:emojiconSize="28sp"
-    />
+    <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+        android:id="@+id/emojicon_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/submit_button"
+        android:layout_toRightOf="@+id/emoji_button"
+        android:hint="Mesaj yaz..."
+        app:emojiconSize="28sp" />
 
 <ListView
     android:id="@+id/list_of_message"
@@ -50,5 +50,8 @@ android:paddingTop="@dimen/activity_vertical_margin"
     android:layout_marginBottom="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentLeft="true"></ListView>
+    android:layout_alignParentLeft="true"
+    android:stackFromBottom="true"
+    android:transcriptMode="alwaysScroll">
+</ListView>
 </RelativeLayout>

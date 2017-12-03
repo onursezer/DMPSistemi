@@ -47,8 +47,10 @@ public class ClassScreen extends AppCompatActivity {
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("CLASS");
         ClassBean classBean = gS.fromJson(target, ClassBean.class);
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),classBean.getTeacher().getEmail(),classBean.getClassId());
+        target = getIntent().getStringExtra("USER");
+        User userBean = gS.fromJson(target, User.class);
+        String status = getIntent().getStringExtra("STATUS");
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),userBean.getName() + " " + userBean.getSurname(),classBean.getClassId());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -138,9 +140,8 @@ public class ClassScreen extends AppCompatActivity {
                     System.out.println("tab2");
                     return  tab2;
                 case 2:
-                    Tab3 tab3 = new Tab3();
                     System.out.println("tab3");
-                    return  tab3;
+                    return  Tab3.newInstance( id );
             }
             return null;
         }

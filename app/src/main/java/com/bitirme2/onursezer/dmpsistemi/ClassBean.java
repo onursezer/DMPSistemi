@@ -1,8 +1,5 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by OnurSezer on 31.10.2017.
  */
@@ -13,7 +10,6 @@ public class ClassBean {
     private String classBranch;
     private String classId;
     private User teacher;
-    private List<User> student;
 
     public ClassBean() {}
 
@@ -22,7 +18,6 @@ public class ClassBean {
         this.classBranch = classBranch;
         this.classId = classId;
         this.teacher = teacher;
-        student = new ArrayList<User>();
     }
 
     public String getClassName() {
@@ -57,11 +52,4 @@ public class ClassBean {
         this.teacher = teacher;
     }
 
-    public List<User> getStudent() {
-        return student;
-    }
-
-    public void setStudent(List<User> student) {
-        this.student = student;
-    }
 }

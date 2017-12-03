@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FirebaseAuthentication</string>
+    <string name="app_name">DPMSistemi</string>
     <string name="title_activity_teacher_classes">TeacherClasses</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

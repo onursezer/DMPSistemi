@@ -173,9 +173,9 @@ public class StudentScreen extends AppCompatActivity {
                                                     }
                                                 }
 
-                                                DatabaseReference dbRef = db.getReference("Users");
+                                                DatabaseReference dRef = db.getReference("Users");
                                                 final ClassInfo finalCInfo = cInfo[0];
-                                                dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                dRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                                      @Override
                                                      public void onDataChange(DataSnapshot dataSnapshot) {
                                                          List<ClassInfo> lClass = null;
@@ -188,60 +188,23 @@ public class StudentScreen extends AppCompatActivity {
                                                              lClass = new ArrayList<ClassInfo>();
                                                          lClass.add(finalCInfo);
 
-                                                         // silme
+                                                         // ogrenci guncelle
                                                          DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                                                          Query applesQuery = ref.child("Users").orderByChild("email").equalTo(user.getEmail());
+                                                         final List<ClassInfo> finalLClass = lClass;
                                                          applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                                              @Override
-                                                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                                                     appleSnapshot.getRef().removeValue();
+                                                             public void onDataChange(DataSnapshot tasksSnapshot) {
+                                                                 for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
+                                                                     snapshot.getRef().child("studentClasses").setValue(finalLClass);
                                                                  }
                                                              }
                                                              @Override
                                                              public void onCancelled(DatabaseError databaseError) {
-                                                                 System.out.println("DELETE : CANCEL");
+
                                                              }
                                                          });
-                                                         user.setStudentClasses(lClass);
-                                                         DatabaseReference dbRef = db.getReference("Users");
-                                                         String key = dbRef.push().getKey();
-                                                         DatabaseReference dbRef2 = db.getReference("Users/" + key);
-                                                         dbRef2.setValue(user);
-
-
-                                                  /*       // sinifin ogrenci listesini guncelle
-                                                         // sinifi sil
-                                                         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
-                                                         Query applesQuery2 = ref2.child("Class/"+teacherOfClass[0]).orderByChild("classId").equalTo(cBean[0].getClassId());
-                                                         applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                             @Override
-                                                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                                                     appleSnapshot.getRef().removeValue();
-                                                                 }
-                                                             }
-                                                             @Override
-                                                             public void onCancelled(DatabaseError databaseError) {
-                                                                 System.out.println("DELETE : CANCEL");
-                                                             }
-                                                         });
-
-                                                         // sinifi guncelle
-                                                         List<User> students = null;
-                                                         students = cBean[0].getStudent();
-                                                         if(students == null)
-                                                             students = new ArrayList<User>();
-                                                         System.out.println("size : " + cBean[0].getStudent().size());
-                                                         students.add(user);
-                                                         System.out.println("** size : " + cBean[0].getStudent().size());
-                                                         cBean[0].setStudent(students);
-                                                         DatabaseReference dbRef4 = db.getReference("Class/"+ teacherOfClass[0]);
-                                                         String key2 = dbRef4.push().getKey();
-                                                         DatabaseReference dbRef5 = db.getReference("Class/"+ teacherOfClass[0] + "/" + key2);
-                                                         dbRef5.setValue( cBean[0] );
-
-                                                         System.out.println("eklendi");*/
+                                                         ref.onDisconnect();
 
                                                          Toast.makeText(StudentScreen.this, "Sınıf Eklendi!", Toast.LENGTH_SHORT).show();
                                                      }
@@ -249,14 +212,41 @@ public class StudentScreen extends AppCompatActivity {
                                                     public void onCancelled(DatabaseError databaseError) {
 
                                                     }
-                                                 });
+                                                });
+                                                dRef.onDisconnect();
 
+
+                                                final ClassBean finalcBean = cBean[0];
+                                                // sinif guncelle
+                                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
+                                                Query applesQuery2 = ref2.child("Map2").orderByChild("classId").equalTo(finalcBean.getClassId());
+                                                applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot tasksSnapshot) {
+                                                        for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
+                                                            List<StudentInfo> l = snapshot.getValue(MapClassAndStudents.class).getList();
+                                                            if(l == null)
+                                                            {
+                                                                System.out.println("gıncelle - null");
+                                                                l = new ArrayList<StudentInfo>();
+                                                            }
+                                                            l.add(new StudentInfo(user.getName(), user.getSurname(), user.getEmail()));
+                                                            snapshot.getRef().child("list").setValue(l);
+                                                        }
+                                                    }
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                                ref2.onDisconnect();
                                             }
                                             @Override
                                             public void onCancelled(DatabaseError databaseError) {
 
                                             }
                                         });
+                                        dbRef.onDisconnect();
                                     }
                                     else
                                     {
@@ -268,6 +258,7 @@ public class StudentScreen extends AppCompatActivity {
 
                                 }
                             });
+                            dbRef.onDisconnect();
                             dialog.dismiss();
                         }
                         else{
