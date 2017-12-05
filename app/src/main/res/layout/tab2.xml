@@ -4,9 +4,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tab2" />
+        android:gravity="center"
+        android:text="Tab2"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 </LinearLayout>

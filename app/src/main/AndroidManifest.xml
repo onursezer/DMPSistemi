@@ -27,6 +27,14 @@
             android:label="@string/title_activity_class_screen"
             android:theme="@style/AppTheme" />
         <activity android:name=".StudentScreen" />
+
+        <service android:name=".SmsServ">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT">
+                </action>>
+            </intent-filter>>
+        </service>
+
     </application>
 
 </manifest>

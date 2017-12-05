@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -45,8 +44,6 @@ public class Tab1 extends Fragment {
     ImageView emojiButton,submitButton;
     EmojIconActions emojIconActions;
 
-
-    private TextView hotel_nombre;
     private String nameUser;
     private String classID;
 
