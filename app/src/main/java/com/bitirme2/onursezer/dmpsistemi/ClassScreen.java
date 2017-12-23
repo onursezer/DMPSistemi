@@ -58,7 +58,8 @@ public class ClassScreen extends AppCompatActivity {
         else
             userName = userBean.getName() + " " + userBean.getSurname();
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),userName,classBean.getClassId());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),userName,classBean.getClassId(),
+                classBean.getTeacher().getName() + " " + classBean.getTeacher().getSurname(), classBean.getTeacher().getEmail());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -130,11 +131,13 @@ public class ClassScreen extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String name,id ;
-        public SectionsPagerAdapter(FragmentManager fm, String name,String id) {
+        String name,id, teacherName, teacherMail;
+        public SectionsPagerAdapter(FragmentManager fm, String name,String id, String teacherName, String teacherMail) {
             super(fm);
             this.name = name;
             this.id = id;
+            this.teacherMail = teacherMail;
+            this.teacherName = teacherName;
         }
 
         @Override
@@ -148,7 +151,7 @@ public class ClassScreen extends AppCompatActivity {
                     return  Tab2.newInstance(id);
                 case 2:
                     System.out.println("tab3");
-                    return  Tab3.newInstance( id );
+                    return  Tab3.newInstance( id, teacherName, teacherMail );
             }
             return null;
         }
@@ -163,11 +166,11 @@ public class ClassScreen extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Sohpet";
+                    return "Sohbet";
                 case 1:
-                    return "Akış";
+                    return "Ödev";
                 case 2:
-                    return "Öğrenciler";
+                    return "Hakkında";
             }
             return null;
         }

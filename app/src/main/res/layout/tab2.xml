@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
+    <include layout="@layout/content_teacher_screen"
+        android:id="@+id/include2" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Tab2"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-</LinearLayout>
+        android:clickable="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="#00897B"
+        app:srcCompat="@drawable/ic_add_white_24dp" />
+
+    <ListView
+        android:id="@+id/listviewHW"
+        android:layout_width="wrap_content"
+        android:layout_height="490dp"
+        android:layout_marginTop="55dp" />
+
+
+</android.support.design.widget.CoordinatorLayout>

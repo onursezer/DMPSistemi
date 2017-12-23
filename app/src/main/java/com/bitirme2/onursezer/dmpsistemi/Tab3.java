@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,14 +26,17 @@ import java.util.List;
 
 public class Tab3 extends Fragment {
     private Context fCon;
-    private String classID;
+    private String classID, teacherName, teacherMail;
     FirebaseDatabase db;
     ListView mListView;
+    TextView txtTeacherName, txtTeacherMail, txtClassID;
 
-    public static Tab3 newInstance( String id ) {
+    public static Tab3 newInstance( String id, String teacherName, String teacherMail ) {
         Tab3 result = new Tab3();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putString("teacherName", teacherName);
+        bundle.putString("teacherMail", teacherMail);
         result.setArguments(bundle);
         return result;
     }
@@ -42,6 +46,8 @@ public class Tab3 extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         classID =  bundle.getString("id");
+        teacherName =  bundle.getString("teacherName");
+        teacherMail =  bundle.getString("teacherMail");
         fCon = getContext();
     }
 
@@ -50,6 +56,13 @@ public class Tab3 extends Fragment {
         super.onActivityCreated(state);
         db = FirebaseDatabase.getInstance();
         mListView  = (ListView) getView().findViewById(R.id.list_of_student);
+        txtClassID = (TextView) getView().findViewById(R.id.txtInfoClassId);
+        txtTeacherMail = (TextView) getView().findViewById(R.id.txtInfoTeacherMail);
+        txtTeacherName = (TextView) getView().findViewById(R.id.txtInfoTeacherName);
+
+        txtClassID.setText(classID);
+        txtTeacherName.setText(teacherName);
+        txtTeacherMail.setText(teacherMail);
 
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Query applesQuery2 = ref2.child("Map2").orderByChild("classId").equalTo(classID);
@@ -79,7 +92,7 @@ public class Tab3 extends Fragment {
                             mails[i] = list2.get(i);
                         }
                         for (int i = 0; i < list.size(); i++) {
-                            icons[i] = R.mipmap.student_icon;
+                            icons[i] = R.mipmap.class_person_icon;
                         }
                         MyAdapter myAdapter = new MyAdapter(fCon, names,mails, icons);
                         mListView.setAdapter(myAdapter);

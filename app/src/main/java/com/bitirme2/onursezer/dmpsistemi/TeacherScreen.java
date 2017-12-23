@@ -173,6 +173,11 @@ public class TeacherScreen extends AppCompatActivity {
                             String key3 = dbRef5.push().getKey();
                             DatabaseReference dbRef6 = db.getReference("Map2/"+ key3);
                             dbRef6.setValue(new MapClassAndStudents ( classID ));
+                            // sinif ile odevleri eslestir
+                            DatabaseReference dbRef7 = db.getReference("Map3");
+                            String key4 = dbRef7.push().getKey();
+                            DatabaseReference dbRef8 = db.getReference("Map3/"+ key4);
+                            dbRef8.setValue(new MapClassAndHomework ( classID ));
 
                             Toast.makeText(TeacherScreen.this, "Sınıf Oluşturuldu!", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
