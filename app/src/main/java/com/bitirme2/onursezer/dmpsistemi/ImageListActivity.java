@@ -5,9 +5,9 @@ package com.bitirme2.onursezer.dmpsistemi;
  */
 
 
-/*import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +25,7 @@ public class ImageListActivity extends AppCompatActivity {
     private List<ImageUpload> imgList;
     private ListView lv;
     private ImageListAdapter adapter;
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +33,11 @@ public class ImageListActivity extends AppCompatActivity {
         imgList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.listViewImage);
         //Show progress dialog during list image loading
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait loading list image...");
+        progressDialog = new Dialog(this);
+        progressDialog.setTitle("Please wait loading list image...");
         progressDialog.show();
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference(MainActivity.FB_DATABASE_PATH);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference(HWtab1.FB_DATABASE_PATH);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,4 +66,4 @@ public class ImageListActivity extends AppCompatActivity {
         });
 
     }
-}*/
+}

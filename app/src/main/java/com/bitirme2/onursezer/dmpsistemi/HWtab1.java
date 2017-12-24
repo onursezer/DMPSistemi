@@ -84,6 +84,7 @@ public class HWtab1  extends Fragment {
 
         Button btnBrowse_Click = (Button) getView().findViewById(R.id.btnBrowse_Click);
         Button btnUpload_Click = (Button) getView().findViewById(R.id.btnUpload_Click);
+        Button btnShowListImage_Click = (Button) getView().findViewById(R.id.btnShowListImage_Click);
 
         btnBrowse_Click.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +152,14 @@ public class HWtab1  extends Fragment {
             }
         });
 
+        btnShowListImage_Click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(fCon, ImageListActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
     @Nullable
     @Override
@@ -182,12 +191,5 @@ public class HWtab1  extends Fragment {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
-
-
-
-/*    public void btnShowListImage_Click(View v) {
-        Intent i = new Intent(fCon, ImageListActivity.class);
-        startActivity(i);
-    }*/
 
 }

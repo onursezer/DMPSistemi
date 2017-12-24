@@ -1,10 +1,25 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
+import android.app.Activity;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.util.List;
+
 /**
- * Created by NgocTri on 3/11/2017.
+ * Created by OnurSezer on 24.12.2017.
  */
 
-/*public class ImageListAdapter extends ArrayAdapter<ImageUpload> {
+public class ImageListAdapter extends ArrayAdapter<ImageUpload> {
     private Activity context;
     private int resource;
     private List<ImageUpload> listImage;
@@ -22,7 +37,7 @@ package com.bitirme2.onursezer.dmpsistemi;
         LayoutInflater inflater = context.getLayoutInflater();
 
         View v = inflater.inflate(resource, null);
-        TextView tvName = (TextView) v.findViewById(tvImageName);
+        TextView tvName = (TextView) v.findViewById(R.id.tvImageName);
         ImageView img = (ImageView) v.findViewById(R.id.imgView);
 
         tvName.setText(listImage.get(position).getName());
@@ -31,4 +46,4 @@ package com.bitirme2.onursezer.dmpsistemi;
         return v;
 
     }
-}*/
+}

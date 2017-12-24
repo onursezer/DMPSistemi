@@ -17,7 +17,7 @@
         android:id="@+id/btnBrowse_Click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Browse image to upload" />
+        android:text="Resim Seç" />
 
     <ImageView
         android:layout_width="300dp"
@@ -28,17 +28,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtImageName"
-        android:hint="Image name"/>
+        android:hint="Resimin İsmi"/>
     <Button
         android:id="@+id/btnUpload_Click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload image"/>
+        android:text="Resmi Yükle"/>
     <Button
         android:id="@+id/btnShowListImage_Click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show list image"
+        android:text="Resimleri Göster"
         />
 
 
