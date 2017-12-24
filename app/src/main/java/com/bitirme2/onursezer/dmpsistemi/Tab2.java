@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,11 +29,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -101,6 +105,7 @@ public class Tab2 extends Fragment {
 
                 final List<String> list = new ArrayList<String>();
                 final List<String> list2 = new ArrayList<String>();
+                final List<Homework> list3 = new ArrayList<Homework>();
 
                 for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
                     List<Homework> l = snapshot.getValue(MapClassAndHomework.class).getList();
@@ -109,6 +114,7 @@ public class Tab2 extends Fragment {
                         for (Homework data : l) {
                             list.add( data.getNameOfHW() );
                             list2.add( data.getDeliveryDate() + "  " + data.getDeliveryTime() );
+                            list3.add(data);
                         }
 
                         String[] names = new String[list.size()];
@@ -125,6 +131,20 @@ public class Tab2 extends Fragment {
                         }
                         MyAdapter myAdapter = new MyAdapter(fCon, names,date, icons);
                         mListView.setAdapter(myAdapter);
+                        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                System.out.println("position : " + position);
+                                Intent intent = new Intent(fCon, HomeworkScreen.class);
+                                Gson gS = new Gson();
+                                String hwString = gS.toJson(list3.get(position));
+                                System.out.println("tab2 : " + hwString);
+                                intent.putExtra("HW", hwString);
+                                intent.putExtra("CLASSID", classID);
+                                startActivity(intent);
+                            }
+                        });
                     }
                 }
             }
@@ -200,7 +220,7 @@ public class Tab2 extends Fragment {
                                             System.out.println("gıncelle - null");
                                             l = new ArrayList<Homework>();
                                         }
-                                        l.add(new Homework(txtNameOfHW.getText().toString(), date, time));
+                                        l.add(new Homework(txtNameOfHW.getText().toString(), date, time, "odev" + getSaltString()));
 
                                         snapshot.getRef().child("list").setValue(l);
                                     }
@@ -243,5 +263,16 @@ public class Tab2 extends Fragment {
         new TimePickerDialog(fCon, t, dateTime.get(Calendar.HOUR_OF_DAY), dateTime.get(Calendar.MINUTE), true).show();
     }
 
+    private  String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 5) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+    }
 
 }

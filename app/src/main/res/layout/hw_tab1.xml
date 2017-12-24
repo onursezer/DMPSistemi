@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_hw_tab1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1">
+
+
+    <Button
+        android:id="@+id/btnBrowse_Click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Browse image to upload" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:id="@+id/imageView"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtImageName"
+        android:hint="Image name"/>
+    <Button
+        android:id="@+id/btnUpload_Click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload image"/>
+    <Button
+        android:id="@+id/btnShowListImage_Click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show list image"
+        />
+
+
+
+</LinearLayout>

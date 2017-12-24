@@ -16,7 +16,6 @@ public class MapClassAndStudents {
 
     public MapClassAndStudents(String classId) {
         this.classId = classId;
-        this.list = list;
     }
 
     public String getClassId() {

@@ -22,19 +22,24 @@
             android:name=".TeacherScreen"
             android:label="@string/title_activity_teacher_screen"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ClassScreen"
-            android:label="@string/title_activity_class_screen"
-            android:theme="@style/AppTheme" />
         <activity android:name=".StudentScreen" />
 
         <service android:name=".SmsServ">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT">
-                </action>>
-            </intent-filter>>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                >
+            </intent-filter>
+            >
         </service>
 
+        <activity
+            android:name=".HomeworkScreen"
+            android:label="@string/title_activity_homework_screen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ClassScreen"
+            android:label="@string/title_activity_class_screen"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
