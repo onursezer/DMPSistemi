@@ -44,7 +44,7 @@ import java.util.Random;
 
 public class Tab2 extends Fragment {
     private Context fCon;
-    private String classID;
+    private String classID, status;
     private TextView txtID;
     FirebaseDatabase db;
     ListView mListView;
@@ -74,10 +74,11 @@ public class Tab2 extends Fragment {
         }
     };
 
-    public static Tab2 newInstance( String id) {
+    public static Tab2 newInstance( String id, String status) {
         Tab2 result = new Tab2();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putString("status", status);
         result.setArguments(bundle);
         return result;
     }
@@ -87,6 +88,7 @@ public class Tab2 extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         classID =  bundle.getString("id");
+        status =  bundle.getString("status");
         fCon = getContext();
     }
 
@@ -129,20 +131,32 @@ public class Tab2 extends Fragment {
                         for (int i = 0; i < list.size(); i++) {
                             icons[i] = R.mipmap.icon_hw;
                         }
-                        MyAdapter myAdapter = new MyAdapter(fCon, names,date, icons);
+                        MyAdapter myAdapter = new MyAdapter(fCon, names, date, icons);
                         mListView.setAdapter(myAdapter);
                         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            System.out.println("position : " + position);
 
-                                System.out.println("position : " + position);
+                            Gson gS = new Gson();
+                            String hwString = gS.toJson(list3.get(position));
+                            System.out.println("tab2 : " + hwString);
+
+                            if(status.equals("0"))
+                            {
                                 Intent intent = new Intent(fCon, HomeworkScreen.class);
-                                Gson gS = new Gson();
-                                String hwString = gS.toJson(list3.get(position));
-                                System.out.println("tab2 : " + hwString);
                                 intent.putExtra("HW", hwString);
                                 intent.putExtra("CLASSID", classID);
                                 startActivity(intent);
+                            }
+                            else
+                            {
+                                Intent intent = new Intent(fCon, HomeworkScreenStudent.class);
+                                intent.putExtra("HW", hwString);
+                                intent.putExtra("CLASSID", classID);
+                                startActivity(intent);
+                            }
+
                             }
                         });
                     }

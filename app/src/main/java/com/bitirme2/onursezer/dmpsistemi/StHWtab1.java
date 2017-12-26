@@ -1,13 +1,13 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
-/**
- * Created by OnurSezer on 24.12.2017.
- */
-
-
-import android.app.Dialog;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,34 +20,57 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageListActivity extends AppCompatActivity {
+/**
+ * Created by OnurSezer on 26.12.2017.
+ */
+
+public class StHWtab1 extends Fragment {
+
+    Context fCon;
+    FirebaseDatabase db;
+    String hwGson;
+    Homework homeworkObj;
+
 
     private DatabaseReference mDatabaseRef;
     private List<ImageUpload> imgList;
     private ListView lv;
     private ImageListAdapter adapter;
-    private Dialog progressDialog;
+
+    public static StHWtab1 newInstance(String homework) {
+        StHWtab1 result = new StHWtab1();
+        Bundle bundle = new Bundle();
+        bundle.putString("hw", homework);
+        result.setArguments(bundle);
+        return result;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_list);
+        Bundle bundle = this.getArguments();
+        hwGson = bundle.getString("hw");
+        Gson gS = new Gson();
+        homeworkObj = gS.fromJson(hwGson, Homework.class);
+        fCon = getContext();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle state) {
+        super.onActivityCreated(state);
+
         imgList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.listViewImage);
+        lv = (ListView) getView().findViewById(R.id.listViewImageST);
         //Show progress dialog during list image loading
-        progressDialog = new Dialog(this);
-        progressDialog.setTitle("Please wait loading list image...");
-        progressDialog.show();
 
         Gson gS = new Gson();
-        String target = getIntent().getStringExtra("PATH");
-        String path = gS.fromJson(target, String.class);
+        String path = "odev" + homeworkObj.getHwId();
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(path);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                progressDialog.dismiss();
 
                 //Fetch image data from firebase database
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -57,17 +80,21 @@ public class ImageListActivity extends AppCompatActivity {
                 }
 
                 //Init adapter
-                adapter = new ImageListAdapter(ImageListActivity.this, R.layout.image_item, imgList);
+                adapter = new ImageListAdapter((Activity) fCon, R.layout.image_item, imgList);
                 //Set adapter for listview
                 lv.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-                progressDialog.dismiss();
             }
         });
-
     }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.st_hw_tab1, container, false);
+    }
+
 }

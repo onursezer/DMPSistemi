@@ -38,11 +38,11 @@ public class HomeworkScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_screen);
         Gson gS = new Gson();
-        String target = getIntent().getStringExtra("HW");
-        Homework homework = gS.fromJson(target, Homework.class);
-        target = getIntent().getStringExtra("CLASSID");
+        String homework = getIntent().getStringExtra("HW");
+        String target = getIntent().getStringExtra("CLASSID");
         String classID = gS.fromJson(target, String.class);
 
+      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("onur");
         setSupportActionBar(toolbar);*/
@@ -123,9 +123,8 @@ public class HomeworkScreen extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String classID;
-        Homework homework;
-        public SectionsPagerAdapter(FragmentManager fm, Homework homework, String classID) {
+        String classID, homework;
+        public SectionsPagerAdapter(FragmentManager fm, String homework, String classID) {
             super(fm);
             this.homework = homework;
             this.classID = classID;

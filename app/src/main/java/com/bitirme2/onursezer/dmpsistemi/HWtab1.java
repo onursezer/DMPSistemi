@@ -1,6 +1,6 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,9 +28,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import dmax.dialog.SpotsDialog;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -43,7 +46,8 @@ public class HWtab1  extends Fragment {
 
     Context fCon;
     FirebaseDatabase db;
-    String nameOfHW;
+    String hwGson;
+    Homework homeworkObj;
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -51,15 +55,14 @@ public class HWtab1  extends Fragment {
     private EditText txtImageName;
     private Uri imgUri;
 
-    public static final String FB_STORAGE_PATH = "image/";
-    public static final String FB_DATABASE_PATH = "image";
+    public  String FB_STORAGE_PATH = "";
+    public  String FB_DATABASE_PATH =  "";
     public static final int REQUEST_CODE = 1234;
 
-    public static HWtab1 newInstance(Homework homework) {
+    public static HWtab1 newInstance(String homework) {
         HWtab1 result = new HWtab1();
         Bundle bundle = new Bundle();
-        System.out.println("** hwtab1 : "  +  homework.getNameOfHW());
-        bundle.putString("name", homework.getNameOfHW());
+        bundle.putString("hw", homework);
         result.setArguments(bundle);
         return result;
     }
@@ -68,7 +71,11 @@ public class HWtab1  extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        nameOfHW = bundle.getString("name");
+        hwGson = bundle.getString("hw");
+        Gson gS = new Gson();
+        homeworkObj = gS.fromJson(hwGson, Homework.class);
+        FB_STORAGE_PATH = homeworkObj.getHwId() + "/";
+        FB_DATABASE_PATH = homeworkObj.getHwId();
         fCon = getContext();
     }
 
@@ -100,8 +107,7 @@ public class HWtab1  extends Fragment {
             @Override
             public void onClick(View v) {
                 if (imgUri != null) {
-                    final Dialog dialog = new Dialog(fCon);
-                    dialog.setTitle("Yükleniyor...");
+                    final AlertDialog dialog = new SpotsDialog(fCon);
                     dialog.show();
 
                     //Get the storage reference
@@ -143,11 +149,11 @@ public class HWtab1  extends Fragment {
                                     //Show upload progress
 
                                     double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                    dialog.setTitle("Yükleniyor... " + (int) progress + "%");
+                                    dialog.setMessage("Yükleniyor... " + (int) progress + "%");
                                 }
                             });
                 } else {
-                    Toast.makeText(fCon, "Please select image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fCon, "Önce seçim yapın", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -156,6 +162,9 @@ public class HWtab1  extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(fCon, ImageListActivity.class);
+                Gson gS = new Gson();
+                String path = gS.toJson(FB_DATABASE_PATH);
+                i.putExtra("PATH", path);
                 startActivity(i);
             }
         });

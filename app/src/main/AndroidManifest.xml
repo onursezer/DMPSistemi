@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bitirme2.onursezer.dmpsistemi">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+    <uses-permission android:name="android.permission." />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -40,6 +51,10 @@
         <activity
             android:name=".ClassScreen"
             android:label="@string/title_activity_class_screen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".HomeworkScreenStudent"
+            android:label="@string/title_activity_homework_screen_student"
             android:theme="@style/AppTheme"></activity>
     </application>
 

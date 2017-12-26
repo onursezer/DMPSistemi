@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-public class ClassScreen extends AppCompatActivity {
+public class HomeworkScreenStudent extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -36,28 +36,18 @@ public class ClassScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_screen);
+        setContentView(R.layout.activity_homework_screen);
+        Gson gS = new Gson();
+        String homework = getIntent().getStringExtra("HW");
+        String target = getIntent().getStringExtra("CLASSID");
+        String classID = gS.fromJson(target, String.class);
 
-     /*   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("sezer");
+      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("onur");
         setSupportActionBar(toolbar);*/
 
-        Gson gS = new Gson();
-        String target = getIntent().getStringExtra("CLASS");
-        ClassBean classBean = gS.fromJson(target, ClassBean.class);
-        target = getIntent().getStringExtra("USER");
-        User userBean = gS.fromJson(target, User.class);
-        String status = getIntent().getStringExtra("STATUS");
-        String userName = null;
-        if(status.equals("0"))
-        {
-            userName = userBean.getName() + " " + userBean.getSurname() + "  [Öğretmen]";
-        }
-        else
-            userName = userBean.getName() + " " + userBean.getSurname();
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),userName,classBean.getClassId(),
-                classBean.getTeacher().getName() + " " + classBean.getTeacher().getSurname(), classBean.getTeacher().getEmail(), status);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), homework, classID );
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -72,7 +62,7 @@ public class ClassScreen extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_class_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_homework_screen_student, menu);
         return true;
     }
 
@@ -119,7 +109,7 @@ public class ClassScreen extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_class_screen, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_homework_screen_student, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
@@ -132,14 +122,11 @@ public class ClassScreen extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String name,id, teacherName, teacherMail, status;
-        public SectionsPagerAdapter(FragmentManager fm, String name,String id, String teacherName, String teacherMail, String status) {
+        String classID, homework;
+        public SectionsPagerAdapter(FragmentManager fm, String homework, String classID) {
             super(fm);
-            this.name = name;
-            this.id = id;
-            this.teacherMail = teacherMail;
-            this.teacherName = teacherName;
-            this.status = status;
+            this.homework = homework;
+            this.classID = classID;
         }
 
         @Override
@@ -147,32 +134,26 @@ public class ClassScreen extends AppCompatActivity {
             switch (position){
                 case 0:
                     System.out.println("tab1");
-                    return  Tab1.newInstance(name, id);
+                    return  StHWtab1.newInstance(homework);
                 case 1:
                     System.out.println("tab2");
-                    return  Tab2.newInstance(id,status);
-                case 2:
-                    System.out.println("tab3");
-                    return  Tab3.newInstance( id, teacherName, teacherMail );
+                    return  StHWtab2.newInstance(homework);
             }
             return null;
         }
-
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            // Show 2 total pages.
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Sohbet";
+                    return "Sınıfın Ödevleri";
                 case 1:
-                    return "Ödev";
-                case 2:
-                    return "Hakkında";
+                    return "Ödevini Yükle";
             }
             return null;
         }

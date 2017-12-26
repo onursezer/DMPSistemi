@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="user"
+        android:text=""
         android:textStyle="bold"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
