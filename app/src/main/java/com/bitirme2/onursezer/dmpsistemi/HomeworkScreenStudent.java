@@ -41,13 +41,14 @@ public class HomeworkScreenStudent extends AppCompatActivity {
         String homework = getIntent().getStringExtra("HW");
         String target = getIntent().getStringExtra("CLASSID");
         String classID = gS.fromJson(target, String.class);
+        String user = getIntent().getStringExtra("USER");
 
       /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("onur");
         setSupportActionBar(toolbar);*/
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), homework, classID );
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), homework, classID, user );
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -122,11 +123,12 @@ public class HomeworkScreenStudent extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String classID, homework;
-        public SectionsPagerAdapter(FragmentManager fm, String homework, String classID) {
+        String classID, homework,user;
+        public SectionsPagerAdapter(FragmentManager fm, String homework, String classID, String user) {
             super(fm);
             this.homework = homework;
             this.classID = classID;
+            this.user = user;
         }
 
         @Override
@@ -137,7 +139,7 @@ public class HomeworkScreenStudent extends AppCompatActivity {
                     return  StHWtab1.newInstance(homework);
                 case 1:
                     System.out.println("tab2");
-                    return  StHWtab2.newInstance(homework);
+                    return  StHWtab2.newInstance(homework,user);
             }
             return null;
         }
@@ -151,7 +153,7 @@ public class HomeworkScreenStudent extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Sınıfın Ödevleri";
+                    return "Ödevin Dökümanlari";
                 case 1:
                     return "Ödevini Yükle";
             }

@@ -64,8 +64,9 @@ public class StHWtab1 extends Fragment {
         //Show progress dialog during list image loading
 
         Gson gS = new Gson();
-        String path = "odev" + homeworkObj.getHwId();
+        String path = homeworkObj.getHwId();
 
+        System.out.println("** PATH : " + path);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(path);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {

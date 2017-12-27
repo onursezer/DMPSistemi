@@ -45,19 +45,19 @@ public class ClassScreen extends AppCompatActivity {
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("CLASS");
         ClassBean classBean = gS.fromJson(target, ClassBean.class);
-        target = getIntent().getStringExtra("USER");
-        User userBean = gS.fromJson(target, User.class);
+        String userBean = getIntent().getStringExtra("USER");
+        User user = gS.fromJson(userBean, User.class);
         String status = getIntent().getStringExtra("STATUS");
         String userName = null;
         if(status.equals("0"))
         {
-            userName = userBean.getName() + " " + userBean.getSurname() + "  [Öğretmen]";
+            userName = user.getName() + " " + user.getSurname() + "  [Öğretmen]";
         }
         else
-            userName = userBean.getName() + " " + userBean.getSurname();
+            userName = user.getName() + " " + user.getSurname();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),userName,classBean.getClassId(),
-                classBean.getTeacher().getName() + " " + classBean.getTeacher().getSurname(), classBean.getTeacher().getEmail(), status);
+                classBean.getTeacher().getName() + " " + classBean.getTeacher().getSurname(), classBean.getTeacher().getEmail(), status, userBean);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -132,14 +132,16 @@ public class ClassScreen extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String name,id, teacherName, teacherMail, status;
-        public SectionsPagerAdapter(FragmentManager fm, String name,String id, String teacherName, String teacherMail, String status) {
+        String name,id, teacherName, teacherMail, status,userBean;
+
+        public SectionsPagerAdapter(FragmentManager fm, String name,String id, String teacherName, String teacherMail, String status,String userBean) {
             super(fm);
             this.name = name;
             this.id = id;
             this.teacherMail = teacherMail;
             this.teacherName = teacherName;
             this.status = status;
+            this.userBean = userBean;
         }
 
         @Override
@@ -150,7 +152,7 @@ public class ClassScreen extends AppCompatActivity {
                     return  Tab1.newInstance(name, id);
                 case 1:
                     System.out.println("tab2");
-                    return  Tab2.newInstance(id,status);
+                    return  Tab2.newInstance(id,status,userBean);
                 case 2:
                     System.out.println("tab3");
                     return  Tab3.newInstance( id, teacherName, teacherMail );

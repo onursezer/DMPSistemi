@@ -44,13 +44,15 @@ import java.util.Random;
 
 public class Tab2 extends Fragment {
     private Context fCon;
-    private String classID, status;
+    private String classID, status,user;
     private TextView txtID;
-    FirebaseDatabase db;
-    ListView mListView;
-    TextView text;
+    private FirebaseDatabase db;
+    private ListView mListView;
+    private TextView text;
     private String date;
     private String time;
+    private User userBean;
+    private String random;
 
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
     Calendar dateTime = Calendar.getInstance();
@@ -74,11 +76,12 @@ public class Tab2 extends Fragment {
         }
     };
 
-    public static Tab2 newInstance( String id, String status) {
+    public static Tab2 newInstance( String id, String status,String user) {
         Tab2 result = new Tab2();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         bundle.putString("status", status);
+        bundle.putString("user", user);
         result.setArguments(bundle);
         return result;
     }
@@ -89,15 +92,18 @@ public class Tab2 extends Fragment {
         Bundle bundle = this.getArguments();
         classID =  bundle.getString("id");
         status =  bundle.getString("status");
+        user = bundle.getString("user");
         fCon = getContext();
     }
 
     @Override
-    public void onActivityCreated(Bundle state) {
+    public void onActivityCreated(final Bundle state) {
         super.onActivityCreated(state);
 
         db = FirebaseDatabase.getInstance();
         mListView  = (ListView) getView().findViewById(R.id.listviewHW);
+        Gson gS = new Gson();
+        userBean = gS.fromJson(user, User.class);
 
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Query applesQuery2 = ref2.child("Map3").orderByChild("classId").equalTo(classID);
@@ -108,6 +114,7 @@ public class Tab2 extends Fragment {
                 final List<String> list = new ArrayList<String>();
                 final List<String> list2 = new ArrayList<String>();
                 final List<Homework> list3 = new ArrayList<Homework>();
+                final List<String> list4 = new ArrayList<String>();
 
                 for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
                     List<Homework> l = snapshot.getValue(MapClassAndHomework.class).getList();
@@ -117,10 +124,16 @@ public class Tab2 extends Fragment {
                             list.add( data.getNameOfHW() );
                             list2.add( data.getDeliveryDate() + "  " + data.getDeliveryTime() );
                             list3.add(data);
+                            if(status.equals("1"))
+                            {
+                                list4.add("");
+
+                            }
                         }
 
                         String[] names = new String[list.size()];
                         String[] date = new String[list.size()];
+                        String[] scores = new String[list.size()];
                         Integer[] icons = new Integer[list.size()];
                         for (int i = 0; i < list.size(); i++) {
                             names[i] = list.get(i);
@@ -131,8 +144,18 @@ public class Tab2 extends Fragment {
                         for (int i = 0; i < list.size(); i++) {
                             icons[i] = R.mipmap.icon_hw;
                         }
-                        MyAdapter myAdapter = new MyAdapter(fCon, names, date, icons);
-                        mListView.setAdapter(myAdapter);
+                        for (int i = 0; i < list4.size(); i++) {
+                            scores[i] = list4.get(i);
+                        }
+                        if(status.equals("0")){
+                            MyAdapter myAdapter = new MyAdapter(fCon, names, date, icons);
+                            mListView.setAdapter(myAdapter);
+                        }
+                        else{
+                            MyAdapter2 myAdapter2 = new MyAdapter2(fCon, names, date, icons, scores);
+                            mListView.setAdapter(myAdapter2);
+                        }
+
                         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -154,6 +177,7 @@ public class Tab2 extends Fragment {
                                 Intent intent = new Intent(fCon, HomeworkScreenStudent.class);
                                 intent.putExtra("HW", hwString);
                                 intent.putExtra("CLASSID", classID);
+                                intent.putExtra("USER", user);
                                 startActivity(intent);
                             }
 
@@ -171,91 +195,103 @@ public class Tab2 extends Fragment {
 
 
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab3);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(status.equals("0")) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
 
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(fCon);
-                View mView = getLayoutInflater().inflate(R.layout.dialog_create_hw, null);
-                final EditText txtNameOfHW = (EditText) mView.findViewById(R.id.txtNameOfHW);
-                text = (TextView) mView.findViewById(R.id.textView8);
-                final Button btnSetDate = (Button) mView.findViewById(R.id.btnSetDate);
-                final Button btnSetTime = (Button) mView.findViewById(R.id.btnSetTime);
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(fCon);
+                    View mView = getLayoutInflater().inflate(R.layout.dialog_create_hw, null);
+                    final EditText txtNameOfHW = (EditText) mView.findViewById(R.id.txtNameOfHW);
+                    text = (TextView) mView.findViewById(R.id.textView8);
+                    final Button btnSetDate = (Button) mView.findViewById(R.id.btnSetDate);
+                    final Button btnSetTime = (Button) mView.findViewById(R.id.btnSetTime);
 
-                btnSetDate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateDate();
-                    }
-                });
+                    btnSetDate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateDate();
+                        }
+                    });
 
-                btnSetTime.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        updateTime();
-                    }
-                });
+                    btnSetTime.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateTime();
+                        }
+                    });
 
-                mBuilder.setPositiveButton("Oluştur", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    mBuilder.setPositiveButton("Oluştur", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                mBuilder.setView(mView);
-                final AlertDialog dialog = mBuilder.create();
-                dialog.show();
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#00897B"));
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#00897B"));
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(!txtNameOfHW.getText().toString().isEmpty())
-                        {
-
-                            // sinifa odev ekle
-                            DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
-                            Query applesQuery2 = ref2.child("Map3").orderByChild("classId").equalTo(classID);
-                            applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot tasksSnapshot) {
-                                    for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
-                                        List<Homework> l = snapshot.getValue(MapClassAndHomework.class).getList();
-                                        if(l == null)
-                                        {
-                                            System.out.println("gıncelle - null");
-                                            l = new ArrayList<Homework>();
-                                        }
-                                        l.add(new Homework(txtNameOfHW.getText().toString(), date, time, "odev" + getSaltString()));
-
-                                        snapshot.getRef().child("list").setValue(l);
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                            ref2.onDisconnect();
-
-                            Toast.makeText(fCon, "Ödev Oluşturuldu!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
-                        else{
-                            Toast.makeText(fCon, "Lütfen Boş Alan Bırakmayın!", Toast.LENGTH_SHORT).show();
+                    });
+                    mBuilder.setView(mView);
+                    final AlertDialog dialog = mBuilder.create();
+                    dialog.show();
+                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#00897B"));
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#00897B"));
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!txtNameOfHW.getText().toString().isEmpty()) {
+
+                                // sinifa odev ekle
+                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
+                                Query applesQuery2 = ref2.child("Map3").orderByChild("classId").equalTo(classID);
+                                applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot tasksSnapshot) {
+                                        for (DataSnapshot snapshot : tasksSnapshot.getChildren()) {
+                                            List<Homework> l = snapshot.getValue(MapClassAndHomework.class).getList();
+                                            if (l == null) {
+                                                System.out.println("gıncelle - null");
+                                                l = new ArrayList<Homework>();
+                                            }
+                                            random = getSaltString();
+                                            l.add(new Homework(txtNameOfHW.getText().toString(), date, time, "odev" + random));
+
+                                            snapshot.getRef().child("list").setValue(l);
+
+
+                                            // odev ile ogrenci eslestir
+                                            DatabaseReference dbRef3 = db.getReference("Map4");
+                                            String key2 = dbRef3.push().getKey();
+                                            DatabaseReference dbRef4 = db.getReference("Map4/"+ key2);
+                                            dbRef4.setValue(new MapHomeworkAndStudent( "odev" + random ));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                ref2.onDisconnect();
+
+
+                                Toast.makeText(fCon, "Ödev Oluşturuldu!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else {
+                                Toast.makeText(fCon, "Lütfen Boş Alan Bırakmayın!", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
+        else{
+            fab.setVisibility(View.INVISIBLE);
+        }
 
     }
     @Nullable

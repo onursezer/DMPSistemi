@@ -1,7 +1,5 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
-import java.util.List;
-
 /**
  * Created by OnurSezer on 23.12.2017.
  */
@@ -12,7 +10,6 @@ public class Homework {
     private String hwId;
     private String deliveryDate;
     private String deliveryTime;
-    private List<HomeworkInfo> list;
 
     public Homework() {
     }
@@ -46,14 +43,6 @@ public class Homework {
 
     public void setDeliveryTime(String deliveryTime) {
         this.deliveryTime = deliveryTime;
-    }
-
-    public List<HomeworkInfo> getList() {
-        return list;
-    }
-
-    public void setList(List<HomeworkInfo> list) {
-        this.list = list;
     }
 
     public String getHwId() {
