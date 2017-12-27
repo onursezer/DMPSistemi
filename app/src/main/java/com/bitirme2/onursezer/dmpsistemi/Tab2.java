@@ -104,7 +104,7 @@ public class Tab2 extends Fragment {
         mListView  = (ListView) getView().findViewById(R.id.listviewHW);
         Gson gS = new Gson();
         userBean = gS.fromJson(user, User.class);
-
+        System.out.println("status : " + status);
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Query applesQuery2 = ref2.child("Map3").orderByChild("classId").equalTo(classID);
         applesQuery2.addValueEventListener(new ValueEventListener() {
@@ -126,7 +126,40 @@ public class Tab2 extends Fragment {
                             list3.add(data);
                             if(status.equals("1"))
                             {
-                                list4.add("");
+
+                                DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
+                                Query applesQuery2 = ref2.child("Map4").orderByChild("hwID").equalTo(data.getHwId());
+                                applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot tasksSnapshot) {
+                                        int st = -1;
+                                        for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
+                                            List<HomeworkInfo> l = snapshot.getValue(MapHomeworkAndStudent.class).getList();
+                                            if(l == null)
+                                            {
+                                                list4.add("");
+                                            }
+                                            else{
+                                                for (int i = 0; i < l.size() ; i++) {
+                                                    if(l.get(i).getStudentInfo().getEmail().equals(userBean.getEmail()))
+                                                    {
+                                                        list4.add(l.get(i).getScore());
+                                                        st = 1;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                        if(st == -1)
+                                            list4.add("");
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                ref2.onDisconnect();
 
                             }
                         }
@@ -152,6 +185,13 @@ public class Tab2 extends Fragment {
                             mListView.setAdapter(myAdapter);
                         }
                         else{
+                            System.out.println("list4.size()" + list4.size());
+                            if(list4.size() > 0)
+                                for (int i = 0; i < list4.size(); i++) {
+                                    System.out.println(list4.get(i));
+                                    System.out.println("scores[i] : " + scores[i]);
+                                }
+                            System.out.println("öğrenci formatı");
                             MyAdapter2 myAdapter2 = new MyAdapter2(fCon, names, date, icons, scores);
                             mListView.setAdapter(myAdapter2);
                         }

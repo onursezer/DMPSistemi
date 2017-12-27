@@ -38,6 +38,7 @@ import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import dmax.dialog.SpotsDialog;
@@ -147,12 +148,6 @@ public class StHWtab2 extends Fragment {
                             mDatabaseRef.child(uploadId).setValue(imageUpload);
 
 
-
-
-
-
-
-
                             DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
                             Query applesQuery2 = ref2.child("Map4").orderByChild("hwID").equalTo(homeworkObj.getHwId());
                             applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -164,8 +159,17 @@ public class StHWtab2 extends Fragment {
                                         {
                                             l = new ArrayList<HomeworkInfo>();
                                         }
+                                        Calendar cal = Calendar.getInstance();
+                                        int second = cal.get(Calendar.SECOND);
+                                        int minute = cal.get(Calendar.MINUTE);
+                                        int hour = cal.get(Calendar.HOUR);
+                                        String time = hour + ":" + minute + ":" +second;
+                                        int month = cal.get(Calendar.MONTH);
+                                        int year = cal.get(Calendar.YEAR);
+                                        int dayofmonth = cal.get(Calendar.DAY_OF_MONTH);
+                                        String date = dayofmonth + "/" + month + "/" + year;
                                         l.add(new HomeworkInfo("", (new StudentInfo(userObj.getName(), userObj.getSurname(), userObj.getEmail())),
-                                                FB_DATABASE_PATH ));
+                                                FB_DATABASE_PATH, date, time ));
                                         snapshot.getRef().child("list").setValue(l);
                                     }
                                 }

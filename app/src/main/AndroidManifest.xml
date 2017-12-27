@@ -56,7 +56,10 @@
             android:name=".HomeworkScreenStudent"
             android:label="@string/title_activity_homework_screen_student"
             android:theme="@style/AppTheme" />
-        <activity android:name=".HWGiveScore"></activity>
+        <activity
+            android:name=".HWGiveScore"
+            android:label="@string/title_activity_hwgive_score"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

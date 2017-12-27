@@ -111,7 +111,8 @@ public class HWtab2 extends Fragment {
                                 String hwInfo = gS.toJson(list3.get(position));
 
                                 Intent intent = new Intent(fCon, HWGiveScore.class);
-                                intent.putExtra("HW", hwInfo);
+                                intent.putExtra("HWINFO", hwInfo);
+                                intent.putExtra("HW", hwGson);
                                 startActivity(intent);
 
                             }

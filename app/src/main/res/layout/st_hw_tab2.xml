@@ -18,7 +18,7 @@
         android:id="@+id/btnBrowse_Click2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resim Seç" />
+        android:text="Seç" />
 
     <ImageView
         android:layout_width="300dp"
@@ -29,12 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtImageName2"
-        android:hint="Resimin İsmi"/>
+        android:hint="İsim yaz..."/>
     <Button
         android:id="@+id/btnUpload_Click2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resmi Yükle"/>
+        android:text="Yükle"/>
 
 
 </LinearLayout>

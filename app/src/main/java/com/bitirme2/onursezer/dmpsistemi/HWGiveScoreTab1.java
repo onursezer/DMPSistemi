@@ -21,15 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by OnurSezer on 26.12.2017.
+ * Created by OnurSezer on 27.12.2017.
  */
 
-public class StHWtab1 extends Fragment {
+public class HWGiveScoreTab1 extends Fragment {
 
     Context fCon;
     FirebaseDatabase db;
-    String hwGson;
-    Homework homeworkObj;
+    HomeworkInfo homeworkObj;
 
 
     private DatabaseReference mDatabaseRef;
@@ -37,10 +36,10 @@ public class StHWtab1 extends Fragment {
     private ListView lv;
     private ImageListAdapter adapter;
 
-    public static StHWtab1 newInstance(String homework) {
-        StHWtab1 result = new StHWtab1();
+    public static HWGiveScoreTab1 newInstance(String homeworkInfo) {
+        HWGiveScoreTab1 result = new HWGiveScoreTab1();
         Bundle bundle = new Bundle();
-        bundle.putString("hw", homework);
+        bundle.putString("hw", homeworkInfo);
         result.setArguments(bundle);
         return result;
     }
@@ -49,9 +48,10 @@ public class StHWtab1 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
+        String hwGson;
         hwGson = bundle.getString("hw");
         Gson gS = new Gson();
-        homeworkObj = gS.fromJson(hwGson, Homework.class);
+        homeworkObj = gS.fromJson(hwGson, HomeworkInfo.class);
         fCon = getContext();
     }
 
@@ -60,12 +60,11 @@ public class StHWtab1 extends Fragment {
         super.onActivityCreated(state);
 
         imgList = new ArrayList<>();
-        lv = (ListView) getView().findViewById(R.id.listViewImageST);
+        lv = (ListView) getView().findViewById(R.id.listViewStudentHomework);
         //Show progress dialog during list image loading
 
         Gson gS = new Gson();
-        String path = homeworkObj.getHwId();
-
+        String path = homeworkObj.getLink();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(path);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -94,7 +93,6 @@ public class StHWtab1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.st_hw_tab1, container, false);
+        return inflater.inflate(R.layout.hw_score_tab1, container, false);
     }
-
 }
