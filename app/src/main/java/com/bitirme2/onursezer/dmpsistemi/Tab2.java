@@ -92,6 +92,7 @@ public class Tab2 extends Fragment {
         Bundle bundle = this.getArguments();
         classID =  bundle.getString("id");
         status =  bundle.getString("status");
+        System.out.println("onCreate : " + status);
         user = bundle.getString("user");
         fCon = getContext();
     }

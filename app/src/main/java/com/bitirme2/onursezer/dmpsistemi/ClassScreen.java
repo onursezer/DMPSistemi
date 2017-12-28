@@ -146,35 +146,82 @@ public class ClassScreen extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    System.out.println("tab1");
-                    return  Tab1.newInstance(name, id);
-                case 1:
-                    System.out.println("tab2");
-                    return  Tab2.newInstance(id,status,userBean);
-                case 2:
-                    System.out.println("tab3");
-                    return  Tab3.newInstance( id, teacherName, teacherMail );
+            if(status.equals("0")){
+                switch (position){
+                    case 0:
+                        System.out.println("tab1");
+                        return  Tab1.newInstance(name, id);
+                    case 1:
+                        System.out.println("tab2");
+                        return  Tab2.newInstance(id,status,userBean);
+                    case 2:
+                        System.out.println("tab3");
+                        return  Tab3.newInstance( id, teacherName, teacherMail );
+                    case 3:
+                        System.out.println("tab3");
+                        return  Tab4Teacher.newInstance( );
+                    case 4:
+                        System.out.println("tab4");
+                        return  Tab5Teacher.newInstance(  );
+                }
             }
+            else {
+                switch (position){
+                    case 0:
+                        System.out.println("tab1");
+                        return  Tab1.newInstance(name, id);
+                    case 1:
+                        System.out.println("tab2");
+                        return  Tab2.newInstance(id,status,userBean);
+                    case 2:
+                        System.out.println("tab3");
+                        return  Tab3.newInstance( id, teacherName, teacherMail );
+                    case 3:
+                        System.out.println("tab4");
+                        return  Tab4Student.newInstance(  );
+                    case 4:
+                        System.out.println("tab4");
+                        return  Tab5Student.newInstance(  );
+                }
+            }
+
             return null;
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+                return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Sohbet";
-                case 1:
-                    return "Ödev";
-                case 2:
-                    return "Hakkında";
+            if(status.equals("0")) {
+                switch (position) {
+                    case 0:
+                        return "Sohbet";
+                    case 1:
+                        return "Ödev";
+                    case 2:
+                        return "Hakkında";
+                    case 3:
+                        return "Yoklama Al";
+                    case 4:
+                        return "Devamlılık";
+                }
+            }
+            else{
+                switch (position) {
+                    case 0:
+                        return "Sohbet";
+                    case 1:
+                        return "Ödev";
+                    case 2:
+                        return "Hakkında";
+                    case 3:
+                        return "Yoklamaya Katıl";
+                    case 4:
+                        return "Devamlılık";
+                }
             }
             return null;
         }
