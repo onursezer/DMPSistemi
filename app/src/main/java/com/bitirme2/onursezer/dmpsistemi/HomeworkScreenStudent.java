@@ -143,13 +143,16 @@ public class HomeworkScreenStudent extends AppCompatActivity {
                 case 1:
                     System.out.println("tab2");
                     return  StHWtab2.newInstance(homework,user);
+                case 2:
+                    System.out.println("tab3");
+                    return  StHWtab3.newInstance(homework,user);
             }
             return null;
         }
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 2;
+            return 3;
         }
 
         @Override
@@ -159,6 +162,8 @@ public class HomeworkScreenStudent extends AppCompatActivity {
                     return "Ödevin Dökümanlari";
                 case 1:
                     return "Ödevini Yükle";
+                case 2:
+                    return "Ödevden Aldığın Puan";
             }
             return null;
         }

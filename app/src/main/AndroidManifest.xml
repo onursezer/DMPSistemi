@@ -34,14 +34,6 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".StudentScreen" />
 
-        <service android:name=".SmsServ">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-                >
-            </intent-filter>
-            >
-        </service>
-
         <activity
             android:name=".HomeworkScreen"
             android:label="@string/title_activity_homework_screen"

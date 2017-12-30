@@ -29,6 +29,12 @@ public class MyAdapter2 extends ArrayAdapter<String>{
         this.flags = countryFlags;
         this.mContext = context;
         this.scores = scores;
+        for (int i = 0; i < names2.length; i++) {
+            System.out.println("** names2 : " + names2[i]);
+        }
+        for (int i = 0; i < scores.length; i++) {
+            System.out.println("** score : " + scores[i]);
+        }
     }
 
     @Override

@@ -27,6 +27,7 @@ public class MyAdapter extends ArrayAdapter<String>{
         this.names2 = branchName;
         this.flags = countryFlags;
         this.mContext = context;
+        System.out.println("MyAdapter");
     }
 
     @Override
