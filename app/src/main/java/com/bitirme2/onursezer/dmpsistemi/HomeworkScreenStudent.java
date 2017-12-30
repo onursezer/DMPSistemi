@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,17 +37,19 @@ public class HomeworkScreenStudent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homework_screen);
+        setContentView(R.layout.activity_homework_screen_student);
         Gson gS = new Gson();
         String homework = getIntent().getStringExtra("HW");
         String target = getIntent().getStringExtra("CLASSID");
         String classID = gS.fromJson(target, String.class);
         String user = getIntent().getStringExtra("USER");
 
-      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("onur");
-        setSupportActionBar(toolbar);*/
+        User userB = gS.fromJson(user, User.class);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        TextView titleHomeworkStudentScreen = (TextView) findViewById(R.id.titleHomeworkStudentScreen);
+        titleHomeworkStudentScreen.setText(userB.getName() + " " + userB.getSurname() +" [Öğrenci]");
+
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), homework, classID, user );
 

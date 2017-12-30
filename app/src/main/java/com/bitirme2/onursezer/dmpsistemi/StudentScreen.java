@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -35,17 +36,23 @@ public class StudentScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = FirebaseDatabase.getInstance();
         setContentView(R.layout.activity_student_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Dersler");
-        toolbar.setBackgroundColor(Color.parseColor("#00897B"));
-        mListView  = (ListView) findViewById(R.id.listview);
-
+        db = FirebaseDatabase.getInstance();
         Gson gS = new Gson();
         final String target = getIntent().getStringExtra("USER");
         user = gS.fromJson(target, User.class);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarS1);
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbarS2);
+        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar2);
+        TextView titleStudentScreen = (TextView) findViewById(R.id.titleStudentScreen);
+        TextView titleStudentScreen2 = (TextView) findViewById(R.id.titleStudentScreen2);
+
+        titleStudentScreen.setText(user.getName() + " " + user.getSurname() +" [Öğrenci]");
+        titleStudentScreen2.setText("Dersler");
+
+        mListView  = (ListView) findViewById(R.id.listviewStudent);
         String useMail = user.getEmail();
 
         DatabaseReference dbRef = db.getReference("Users");

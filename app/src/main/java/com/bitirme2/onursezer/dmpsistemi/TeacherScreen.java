@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,18 +37,25 @@ public class TeacherScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = FirebaseDatabase.getInstance();
         setContentView(R.layout.activity_teacher_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Dersler");
-        toolbar.setBackgroundColor(Color.parseColor("#00897B"));
-        mListView  = (ListView) findViewById(R.id.listview);
-
+        db = FirebaseDatabase.getInstance();
         Gson gS = new Gson();
         final String target = getIntent().getStringExtra("USER");
         user = gS.fromJson(target, User.class);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar2);
+        TextView titleTeacherScreen = (TextView) findViewById(R.id.titleTeacherScreen);
+        TextView titleTeacherScreen2 = (TextView) findViewById(R.id.titleTeacherScreen2);
+
+        titleTeacherScreen.setText(user.getName() + " " + user.getSurname() +" [Öğretmen]");
+        titleTeacherScreen2.setText("Dersler");
+
+        mListView  = (ListView) findViewById(R.id.listviewTeacher);
         String nameClass = user.getEmail();
+
         nameClass = nameClass.replace(".", ""); nameClass = nameClass.replace("#", "");
         nameClass = nameClass.replace("$", ""); nameClass = nameClass.replace("[", "");
         nameClass = nameClass.replace("]", "");

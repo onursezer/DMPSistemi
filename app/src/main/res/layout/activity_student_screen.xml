@@ -8,19 +8,61 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="80dp"
+        android:background="#00897B"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:visibility="visible">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarS1"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="38dp"
+            android:elevation="0dp"
+            android:minHeight="?attr/actionBarSize"
+            android:weightSum="1"
+            app:layout_collapseMode="pin"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                android:id="@+id/titleStudentScreen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:paddingLeft="0dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </android.support.v7.widget.Toolbar>
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarS2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                android:id="@+id/titleStudentScreen2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:paddingLeft="0dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_teacher_screen"
+    <include layout="@layout/content_student_screen"
         android:id="@+id/include2" />
 
 
@@ -35,10 +77,10 @@
         app:srcCompat="@drawable/ic_add_white_24dp" />
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/listviewStudent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="55dp" />
+        android:layout_height="461dp"
+        android:layout_marginTop="90dp" />
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -44,41 +44,6 @@
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp" />
-    <!--textAlCaps -küçük harf yazımına izin veriyor-->
-
-   <!-- <android.support.design.widget.TextInputLayout
-        android:id="@+id/dashboard_input_new_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/dashboard_new_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter new password"
-            android:inputType="textPassword"
-            android:maxLines="1" />
-
-    </android.support.design.widget.TextInputLayout>
-
-
-    <Button
-        android:id="@+id/dashboard_btn_change_pass"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#263238"
-        android:text="Change Password" />
-
-    <Button
-        android:id="@+id/dashboard_btn_logout"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#263238"
-        android:text="Logout" />-->
-
 
     <LinearLayout
         android:id="@+id/login_layout_or"

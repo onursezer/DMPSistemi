@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -112,6 +113,7 @@ public class HWGiveScoreTab2  extends Fragment {
                             }
                             snapshot.getRef().child("list").setValue(l);
                         }
+                        Toast.makeText(fCon, "Puan Verildi!", Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

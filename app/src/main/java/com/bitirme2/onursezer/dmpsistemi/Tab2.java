@@ -211,6 +211,7 @@ public class Tab2 extends Fragment {
                                 Intent intent = new Intent(fCon, HomeworkScreen.class);
                                 intent.putExtra("HW", hwString);
                                 intent.putExtra("CLASSID", classID);
+                                intent.putExtra("USER", user);
                                 startActivity(intent);
                             }
                             else

@@ -1,5 +1,6 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +18,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-public class ClassScreen extends AppCompatActivity {
+public class ClassScreen extends AppCompatActivity  {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,16 +40,22 @@ public class ClassScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_screen);
 
-     /*   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("sezer");
-        setSupportActionBar(toolbar);*/
-
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("CLASS");
         ClassBean classBean = gS.fromJson(target, ClassBean.class);
         String userBean = getIntent().getStringExtra("USER");
         User user = gS.fromJson(userBean, User.class);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView titleClassScreen = (TextView) findViewById(R.id.titleClassScreen);
         String status = getIntent().getStringExtra("STATUS");
+        if(status.equals("1"))
+            titleClassScreen.setText(user.getName() + " " + user.getSurname() +" [Öğrenci]");
+        else
+            titleClassScreen.setText(user.getName() + " " + user.getSurname() +" [Öğretmen]");
+
+        setSupportActionBar(toolbar);
+
+
         String userName = null;
         if(status.equals("0"))
         {
@@ -65,15 +73,14 @@ public class ClassScreen extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setBackgroundColor(Color.parseColor("#00897B"));
 
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_class_screen, menu);
-        return true;
+        return false;
     }
 
     @Override

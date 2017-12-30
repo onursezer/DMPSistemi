@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/btnScanQRCode"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Scan QR Code" />
+        android:layout_height="235dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="104dp"
+            android:layout_height="74dp"
+            app:srcCompat="@mipmap/icon_qr_code" />
+
+        <Button
+            android:id="@+id/btnScanQRCode"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="164dp"
+            android:layout_height="wrap_content"
+            android:background="#00897B"
+            android:text="QR KOD TARA" />
+
+    </LinearLayout>
 
 
 </LinearLayout>
