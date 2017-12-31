@@ -14,11 +14,19 @@
 
 
         <EditText
+            android:id="@+id/editTextQRCodeStr"
+            android:layout_width="287dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Gösterilecek QR Kodunun Metni"
+            android:inputType="textCapCharacters" />
+
+        <EditText
             android:id="@+id/editTextAttendanceTime"
             android:layout_width="287dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Yoklamanın açık kalma dakikası"
+            android:hint="Yoklamanın Açık Kalma Dakikası"
             android:inputType="number" />
 
         <Button

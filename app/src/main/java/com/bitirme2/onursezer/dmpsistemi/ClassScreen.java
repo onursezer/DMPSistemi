@@ -166,7 +166,7 @@ public class ClassScreen extends AppCompatActivity  {
                         return  Tab3.newInstance( id, teacherName, teacherMail );
                     case 3:
                         System.out.println("tab3");
-                        return  Tab4Teacher.newInstance( );
+                        return  Tab4Teacher.newInstance( id );
                     case 4:
                         System.out.println("tab4");
                         return  Tab5Teacher.newInstance(  );
@@ -185,7 +185,7 @@ public class ClassScreen extends AppCompatActivity  {
                         return  Tab3.newInstance( id, teacherName, teacherMail );
                     case 3:
                         System.out.println("tab4");
-                        return  Tab4Student.newInstance(  );
+                        return  Tab4Student.newInstance( id, userBean );
                     case 4:
                         System.out.println("tab4");
                         return  Tab5Student.newInstance(  );

@@ -3,18 +3,21 @@ package com.bitirme2.onursezer.dmpsistemi;
 import java.util.Calendar;
 
 /**
- * Created by OnurSezer on 20.11.2017.
+ * Created by OnurSezer on 31.12.2017.
  */
 
-public class ChatMessage {
-    private String messageText;
-    private String messageUser;
-    private String messageTime;
+public class Attendance {
 
-    public ChatMessage(String messageText, String messageUser) {
-        this.messageText = messageText;
-        this.messageUser = messageUser;
+    private String txtQRcode;
+    private String openTime;
+    private String date;
+    private String time;
 
+    public Attendance() {
+    }
+
+    public Attendance(String txtQRcode, String openTime) {
+        this.txtQRcode = txtQRcode;
         Calendar cal = Calendar.getInstance();
         String second = new Integer(cal.get(Calendar.SECOND)).toString();
         String minute = new Integer(cal.get(Calendar.MINUTE)).toString();
@@ -36,35 +39,42 @@ public class ChatMessage {
             dayofmonth = "0" + dayofmonth;
 
         String date = dayofmonth + "/" + month + "/" + year;
-        messageTime = date + " (" + time + ")";
-       /* TimeZone.setDefault(TimeZone.getTimeZone("Turkey"));
-        messageTime = DateFormat.format("dd-MM-yyyy (HH:mm:ss)",new Date().getTime()).toString();*/
+
+        this.date = date;
+        this.time = time;
+        this.openTime = openTime;
+
     }
 
-    public ChatMessage() {
+    public String getTxtQRcode() {
+        return txtQRcode;
     }
 
-    public String getMessageText() {
-        return messageText;
+    public void setTxtQRcode(String txtQRcode) {
+        this.txtQRcode = txtQRcode;
     }
 
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
+    public String getDate() {
+        return date;
     }
 
-    public String getMessageUser() {
-        return messageUser;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
+    public String getTime() {
+        return time;
     }
 
-    public String getMessageTime() {
-        return messageTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public void setMessageTime(String messageTime) {
-        this.messageTime = messageTime;
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
     }
 }

@@ -16,11 +16,13 @@ import android.widget.Button;
 
 public class Tab4Student extends Fragment {
     private Context fCon;
+    String classID,userBean;
 
-    public static Tab4Student newInstance() {
+    public static Tab4Student newInstance( String id, String userBean) {
         Tab4Student result = new Tab4Student();
         Bundle bundle = new Bundle();
-
+        bundle.putString("id", id);
+        bundle.putString("userBean", userBean);
         result.setArguments(bundle);
         return result;
     }
@@ -29,7 +31,8 @@ public class Tab4Student extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-
+        classID =  bundle.getString("id");
+        userBean =  bundle.getString("userBean");
         fCon = getContext();
     }
 
@@ -43,6 +46,8 @@ public class Tab4Student extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(fCon, ScanQRCode.class);
+                intent.putExtra("CLASSID",  classID);
+                intent.putExtra("USER",  userBean);
                 startActivity(intent);
 
             }
