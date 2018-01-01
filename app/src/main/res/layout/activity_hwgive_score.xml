@@ -11,9 +11,34 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="98dp"
         android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:background="#00897B"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:visibility="visible">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:elevation="0dp"
+            android:minHeight="?attr/actionBarSize"
+            android:weightSum="1"
+            app:layout_collapseMode="pin"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                android:id="@+id/titleHWGiveScreen"
+                android:layout_width="346dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:paddingLeft="0dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"

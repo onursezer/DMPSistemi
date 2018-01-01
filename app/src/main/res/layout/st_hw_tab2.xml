@@ -13,11 +13,12 @@
     android:weightSum="1">
 
 
-
     <Button
         android:id="@+id/btnBrowse_Click2"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#00897B"
         android:text="Seç" />
 
     <ImageView
@@ -31,9 +32,11 @@
         android:id="@+id/txtImageName2"
         android:hint="İsim yaz..."/>
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/btnUpload_Click2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#00897B"
         android:text="Yükle"/>
 
 

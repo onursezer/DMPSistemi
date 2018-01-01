@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
@@ -17,7 +18,7 @@
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            android:layout_width="227dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="3dp"
@@ -28,10 +29,11 @@
 
         <TextView
             android:id="@+id/textCountAttendance"
-            android:layout_width="149dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
+            android:layout_weight="0.19"
             android:text="0"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
     </LinearLayout>

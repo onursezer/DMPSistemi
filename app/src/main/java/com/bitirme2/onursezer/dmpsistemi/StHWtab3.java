@@ -58,7 +58,7 @@ public class StHWtab3 extends Fragment {
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
 
-        final TextView text = (TextView) getView().findViewById(R.id.textView5) ;
+        final TextView text = (TextView) getView().findViewById(R.id.textHWScore) ;
         final String[] str = {""};
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Query applesQuery2 = ref2.child("Map4").orderByChild("hwID").equalTo(homeworkObj.getHwId());
@@ -71,17 +71,19 @@ public class StHWtab3 extends Fragment {
                     if(l != null) {
                         for (int i = 0; i < l.size(); i++) {
                             if (l.get(i).getStudentInfo().getEmail().equals(userObj.getEmail())) {
-                                str[0] = l.get(i).getScore();
-                                st = 1;
+                                if(l.get(i).getScore() != null || l.get(i).getScore().equals("")){
+                                    str[0] = l.get(i).getScore();
+                                    st = 1;
+                                }
                                 break;
                             }
                         }
                     }
                 }
                 if(st == 1)
-                    text.setText("Not girildi : " +str[0] );
+                    text.setText("Ödevinize girilen not : " +str[0] );
                 else
-                    text.setText("Not yok");
+                    text.setText("Ödevinize not girilmedi.");
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -52,7 +52,7 @@ public class HomeworkScreen extends AppCompatActivity {
         titleHomeworkScreen.setText(user.getName() + " " + user.getSurname() +" [Öğretmen]");
 
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), homework, classID );
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), homework, classID, userBean );
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -65,9 +65,7 @@ public class HomeworkScreen extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_homework_screen, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -126,11 +124,12 @@ public class HomeworkScreen extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String classID, homework;
-        public SectionsPagerAdapter(FragmentManager fm, String homework, String classID) {
+        String classID, homework,userBean;
+        public SectionsPagerAdapter(FragmentManager fm, String homework, String classID, String userBean) {
             super(fm);
             this.homework = homework;
             this.classID = classID;
+            this.userBean = userBean;
         }
 
         @Override
@@ -141,7 +140,7 @@ public class HomeworkScreen extends AppCompatActivity {
                     return  HWtab1.newInstance(homework);
                 case 1:
                     System.out.println("tab2");
-                    return  HWtab2.newInstance(homework);
+                    return  HWtab2.newInstance(homework, userBean);
             }
             return null;
         }

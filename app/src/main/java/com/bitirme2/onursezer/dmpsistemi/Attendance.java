@@ -21,7 +21,7 @@ public class Attendance {
         Calendar cal = Calendar.getInstance();
         String second = new Integer(cal.get(Calendar.SECOND)).toString();
         String minute = new Integer(cal.get(Calendar.MINUTE)).toString();
-        String hour = new Integer(cal.get(Calendar.HOUR)).toString();
+        String hour = new Integer(cal.get(Calendar.HOUR_OF_DAY)).toString();
         if(second.length() == 1)
             second = "0" + second;
         if(minute.length() == 1)

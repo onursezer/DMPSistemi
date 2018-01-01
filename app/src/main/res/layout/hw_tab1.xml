@@ -13,11 +13,12 @@
     android:weightSum="1">
 
 
-
     <Button
         android:id="@+id/btnBrowse_Click"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="#00897B"
         android:text="Seç" />
 
     <ImageView
@@ -30,17 +31,23 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtImageName"
         android:hint="İsim yaz.."/>
+
     <Button
         android:id="@+id/btnUpload_Click"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Yükle"/>
+        android:layout_height="40dp"
+        android:background="#00897B"
+        android:text="Yükle" />
+
     <Button
         android:id="@+id/btnShowListImage_Click"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tümünü Göster"
-        />
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="#00897B"
+        android:text="Tümünü Göster" />
 
 
 

@@ -8,6 +8,8 @@ public class AttendanceStudent {
 
     private StudentInfo student;
     private String attendace;
+    private String date;
+    private String time;
 
     public AttendanceStudent() {
     }
@@ -31,5 +33,21 @@ public class AttendanceStudent {
 
     public void setAttendace(String attendace) {
         this.attendace = attendace;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

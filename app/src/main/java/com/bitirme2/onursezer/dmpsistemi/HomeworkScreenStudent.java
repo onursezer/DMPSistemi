@@ -65,9 +65,7 @@ public class HomeworkScreenStudent extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_homework_screen_student, menu);
-        return true;
+        return false;
     }
 
     @Override

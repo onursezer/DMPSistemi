@@ -14,8 +14,13 @@
 
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
+        android:id="@+id/textHWScore"
+        android:layout_width="227dp"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.57"
+        android:text="Puan"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 </LinearLayout>

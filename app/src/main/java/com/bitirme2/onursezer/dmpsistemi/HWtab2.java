@@ -29,13 +29,14 @@ import java.util.List;
 public class HWtab2 extends Fragment {
 
     private Context fCon;
-    private String hwGson;
+    private String hwGson,userBean;
     private Homework homeworkObj;
 
-    public static HWtab2 newInstance(String homework) {
+    public static HWtab2 newInstance(String homework, String userBean) {
         HWtab2 result = new HWtab2();
         Bundle bundle = new Bundle();
         bundle.putString("hw", homework);
+        bundle.putString("userBean", userBean);
         result.setArguments(bundle);
         return result;
     }
@@ -45,6 +46,7 @@ public class HWtab2 extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         hwGson = bundle.getString("hw");
+        userBean = bundle.getString("userBean");
         Gson gS = new Gson();
         homeworkObj = gS.fromJson(hwGson, Homework.class);
         fCon = getContext();
@@ -70,11 +72,21 @@ public class HWtab2 extends Fragment {
                     List<HomeworkInfo> l = snapshot.getValue(MapHomeworkAndStudent.class).getList();
                     if(l != null)
                     {
+                        boolean flag = false;
                         for (HomeworkInfo data : l) {
-                            list2.add( data.getStudentInfo().getEmail() );
-                            list.add( data.getStudentInfo().getName() + " " + data.getStudentInfo().getSurname() );
-                            list3.add(data);
-                            list4.add(data.getScore());
+                            for (String sMail:list2) {
+                                if(sMail.equals(data.getStudentInfo().getEmail()))
+                                {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if(flag == false){
+                                list2.add( data.getStudentInfo().getEmail() );
+                                list.add( data.getStudentInfo().getName() + " " + data.getStudentInfo().getSurname() );
+                                list3.add(data);
+                                list4.add(data.getScore());
+                            }
                         }
                         String[] names = new String[list.size()];
                         String[] date = new String[list.size()];
@@ -108,6 +120,7 @@ public class HWtab2 extends Fragment {
                                 Intent intent = new Intent(fCon, HWGiveScore.class);
                                 intent.putExtra("HWINFO", hwInfo);
                                 intent.putExtra("HW", hwGson);
+                                intent.putExtra("USER", userBean);
                                 startActivity(intent);
 
                             }

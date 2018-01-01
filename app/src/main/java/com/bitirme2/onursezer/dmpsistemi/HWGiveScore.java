@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,10 +42,13 @@ public class HWGiveScore extends AppCompatActivity {
         String homeworkInfo = getIntent().getStringExtra("HWINFO");
         String homework = getIntent().getStringExtra("HW");
 
-      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("onur");
-        setSupportActionBar(toolbar);*/
+        String userBean = getIntent().getStringExtra("USER");
+        User user = gS.fromJson(userBean, User.class);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView titleHWGiveScreen = (TextView) findViewById(R.id.titleHWGiveScreen);
+        titleHWGiveScreen.setText(user.getName() + " " + user.getSurname() +" [Öğretmen]");
+
+        setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), homeworkInfo, homework );
 
@@ -60,9 +64,7 @@ public class HWGiveScore extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_hwgive_score, menu);
-        return true;
+        return false;
     }
 
     @Override

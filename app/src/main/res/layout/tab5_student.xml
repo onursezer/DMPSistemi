@@ -19,7 +19,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.57"
+            android:layout_weight="0.67"
             android:text="Yoklama Sayısı"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
@@ -48,7 +48,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.57"
+            android:layout_weight="0.60"
             android:text="Devamlılık Sayısı"
             android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 

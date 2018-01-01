@@ -18,7 +18,8 @@ public class ChatMessage {
         Calendar cal = Calendar.getInstance();
         String second = new Integer(cal.get(Calendar.SECOND)).toString();
         String minute = new Integer(cal.get(Calendar.MINUTE)).toString();
-        String hour = new Integer(cal.get(Calendar.HOUR)).toString();
+        String hour = new Integer(cal.get(Calendar.HOUR_OF_DAY)).toString();
+
         if(second.length() == 1)
             second = "0" + second;
         if(minute.length() == 1)
@@ -37,6 +38,9 @@ public class ChatMessage {
 
         String date = dayofmonth + "/" + month + "/" + year;
         messageTime = date + " (" + time + ")";
+
+
+
        /* TimeZone.setDefault(TimeZone.getTimeZone("Turkey"));
         messageTime = DateFormat.format("dd-MM-yyyy (HH:mm:ss)",new Date().getTime()).toString();*/
     }

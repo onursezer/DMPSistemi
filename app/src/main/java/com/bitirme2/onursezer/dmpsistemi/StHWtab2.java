@@ -160,14 +160,25 @@ public class StHWtab2 extends Fragment {
                                             l = new ArrayList<HomeworkInfo>();
                                         }
                                         Calendar cal = Calendar.getInstance();
-                                        int second = cal.get(Calendar.SECOND);
-                                        int minute = cal.get(Calendar.MINUTE);
-                                        int hour = cal.get(Calendar.HOUR);
+                                        String second = new Integer(cal.get(Calendar.SECOND)).toString();
+                                        String minute = new Integer(cal.get(Calendar.MINUTE)).toString();
+                                        String hour = new Integer(cal.get(Calendar.HOUR_OF_DAY)).toString();
+                                        if(second.length() == 1)
+                                            second = "0" + second;
+                                        if(minute.length() == 1)
+                                            minute = "0" + minute;
+                                        if(hour.length() == 1)
+                                            hour = "0" + hour;
                                         String time = hour + ":" + minute + ":" +second;
-                                        int month = cal.get(Calendar.MONTH);
-                                        int year = cal.get(Calendar.YEAR);
-                                        int dayofmonth = cal.get(Calendar.DAY_OF_MONTH);
+                                        String month = new Integer(cal.get(Calendar.MONTH) + 1).toString();
+                                        String year = new Integer(cal.get(Calendar.YEAR)).toString();
+                                        String dayofmonth = new Integer(cal.get(Calendar.DAY_OF_MONTH)).toString();
+                                        if(month.length() == 1)
+                                            month = "0" + month;
+                                        if(dayofmonth.length() == 1)
+                                            dayofmonth = "0" + dayofmonth;
                                         String date = dayofmonth + "/" + month + "/" + year;
+
                                         l.add(new HomeworkInfo("", (new StudentInfo(userObj.getName(), userObj.getSurname(), userObj.getEmail())),
                                                 FB_DATABASE_PATH, date, time ));
                                         snapshot.getRef().child("list").setValue(l);
