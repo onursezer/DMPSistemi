@@ -18,8 +18,8 @@
             android:layout_width="287dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Gösterilecek QR Kodunun Metni"
-            android:inputType="textCapCharacters" />
+            android:hint="Gösterilecek QR Kodun Metni"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/editTextAttendanceTime"

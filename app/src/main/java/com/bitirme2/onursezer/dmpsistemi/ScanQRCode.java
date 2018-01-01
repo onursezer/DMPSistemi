@@ -1,6 +1,5 @@
 package com.bitirme2.onursezer.dmpsistemi;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -63,7 +62,6 @@ public class ScanQRCode extends AppCompatActivity  implements ZXingScannerView.R
                             if (l2 == null) {
                                 l2 = new ArrayList<AttendanceStudent>();
                             }
-                            int flag = 0;
                             for (int i = 0; i < l2.size(); i++) {
                                 if(l2.get(i).getStudent().getEmail().equals(user.getEmail()))
                                 {
@@ -72,13 +70,10 @@ public class ScanQRCode extends AppCompatActivity  implements ZXingScannerView.R
                                     ++att;
                                     a.setAttendace( att.toString() );
                                     l2.set(i,a);
-                                    flag = 1;
                                     break;
                                 }
                             }
-                            if(flag == 0){
-                                l2.add(new AttendanceStudent(new StudentInfo(user.getName(), user.getSurname(), user.getEmail()), "0"));
-                            }
+
                             snapshot.getRef().child("list2").setValue(l2);
                             Toast.makeText(ScanQRCode.this, "Yoklamaya Katılımınız Sağlandı!", Toast.LENGTH_SHORT).show();
                         }
@@ -98,11 +93,11 @@ public class ScanQRCode extends AppCompatActivity  implements ZXingScannerView.R
 
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+/*        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Scan result");
         builder.setMessage(result.getText());
         AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        alertDialog.show();*/
 
         //Resume scanning
         //mScannerView.resumeCameraPreview(this);

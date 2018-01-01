@@ -23,7 +23,7 @@ public class MyAdapter2 extends ArrayAdapter<String>{
     Context mContext;
 
     public MyAdapter2(Context context, String[] className, String[] branchName, Integer[] countryFlags,String[] scores) {
-        super(context, R.layout.listview_item);
+        super(context, R.layout.listview_item2);
         this.names = className;
         this.names2 = branchName;
         this.flags = countryFlags;

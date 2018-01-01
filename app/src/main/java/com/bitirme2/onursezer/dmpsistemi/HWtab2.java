@@ -29,10 +29,8 @@ import java.util.List;
 public class HWtab2 extends Fragment {
 
     private Context fCon;
-    private FirebaseDatabase db;
     private String hwGson;
     private Homework homeworkObj;
-    private ListView mListView;
 
     public static HWtab2 newInstance(String homework) {
         HWtab2 result = new HWtab2();
@@ -55,10 +53,7 @@ public class HWtab2 extends Fragment {
     @Override
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
-
-
-        db = FirebaseDatabase.getInstance();
-        mListView  = (ListView) getView().findViewById(R.id.listViewStudentsHW);
+        final ListView mListView  = (ListView) getView().findViewById(R.id.listViewStudentsHW);
 
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Query applesQuery2 = ref2.child("Map4").orderByChild("hwID").equalTo(homeworkObj.getHwId());

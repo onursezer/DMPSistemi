@@ -169,7 +169,7 @@ public class ClassScreen extends AppCompatActivity  {
                         return  Tab4Teacher.newInstance( id );
                     case 4:
                         System.out.println("tab4");
-                        return  Tab5Teacher.newInstance(  );
+                        return  Tab5Teacher.newInstance( id );
                 }
             }
             else {
@@ -188,7 +188,7 @@ public class ClassScreen extends AppCompatActivity  {
                         return  Tab4Student.newInstance( id, userBean );
                     case 4:
                         System.out.println("tab4");
-                        return  Tab5Student.newInstance(  );
+                        return  Tab5Student.newInstance( id, userBean );
                 }
             }
 

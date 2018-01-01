@@ -247,6 +247,33 @@ public class StudentScreen extends AppCompatActivity {
                                                     }
                                                 });
                                                 ref2.onDisconnect();
+
+                                                // sinifin yoklama kismina ogrencinin bilgileri eklenir
+                                                DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference();
+                                                Query applesQuery3 = ref3.child("Map5").orderByChild("classId").equalTo(finalcBean.getClassId());
+                                                applesQuery3.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot tasksSnapshot) {
+                                                        for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
+                                                            List<AttendanceStudent> l = snapshot.getValue(MapAttendanceAndClass.class).getList2();
+                                                            if(l == null)
+                                                            {
+                                                                l = new ArrayList<AttendanceStudent>();
+                                                            }
+                                                            l.add(new AttendanceStudent(new StudentInfo(user.getName(),user.getSurname(),user.getEmail()), "0"));
+                                                            snapshot.getRef().child("list2").setValue(l);
+                                                        }
+                                                    }
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                                ref3.onDisconnect();
+
+
+
+
                                             }
                                             @Override
                                             public void onCancelled(DatabaseError databaseError) {
