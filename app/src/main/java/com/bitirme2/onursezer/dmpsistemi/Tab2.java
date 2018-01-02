@@ -291,8 +291,25 @@ public class Tab2 extends Fragment {
 
     private void updateTextLabel(){
         //text.setText(formatDateTime.format(dateTime.getTime()));
-        date =  dateTime.get(Calendar.DAY_OF_MONTH) + "/" + (dateTime.get(Calendar.MONTH)+1) + "/" + dateTime.get(Calendar.YEAR);
-        time =  dateTime.get(Calendar.HOUR_OF_DAY) + ":" + dateTime.get(Calendar.MINUTE);
+
+        String minute = new Integer(dateTime.get(Calendar.MINUTE)).toString();
+        String hour = new Integer(dateTime.get(Calendar.HOUR_OF_DAY)).toString();
+
+        if(minute.length() == 1)
+            minute = "0" + minute;
+        if(hour.length() == 1)
+            hour = "0" + hour;
+        time = hour + ":" + minute;
+
+        String month = new Integer(dateTime.get(Calendar.MONTH) + 1).toString();
+        String year = new Integer(dateTime.get(Calendar.YEAR)).toString();
+        String dayofmonth = new Integer(dateTime.get(Calendar.DAY_OF_MONTH)).toString();
+        if(month.length() == 1)
+            month = "0" + month;
+        if(dayofmonth.length() == 1)
+            dayofmonth = "0" + dayofmonth;
+
+        date = dayofmonth + "/" + month + "/" + year;
     }
     private void updateDate(){
         new DatePickerDialog(fCon, d, dateTime.get(Calendar.YEAR),dateTime.get(Calendar.MONTH),dateTime.get(Calendar.DAY_OF_MONTH)).show();
