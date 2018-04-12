@@ -20,14 +20,14 @@ Technologies used:
 
 <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/3.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/4.PNG width="270" height="500">
 
-<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/5.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/6.PNG width="270" height="500">
+<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/5.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/7.PNG width="270" height="500">  
 
-<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/7.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/8.PNG width="270" height="500">
+<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/8.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/10.PNG width="270" height="500">  
 
-<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/10.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/11.PNG width="270" height="500">
+<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/11.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/12.PNG width="270" height="500">  
 
-<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/12.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/13.PNG width="270" height="500">
+<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/13.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/14.PNG width="270" height="500">  
 
-<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/14.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/15.PNG width="270" height="500">
+<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/15.PNG width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/16.jpg width="270" height="500">  
 
-<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/16.jpg width="270" height="500">  <img src = https://github.com/onursezer/DMPSistemi/blob/master/images/17.jpg width="270" height="500">
+<img src = https://github.com/onursezer/DMPSistemi/blob/master/images/17.jpg width="270" height="500">
